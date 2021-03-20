@@ -44,14 +44,14 @@ final class MathTest extends TestCase
         Math::clamp($val, $min, $max);
     }
 
-    public function testDigitsOfWithPositiveValues(): void
+    public function testDigitsOf_WithPositiveValues(): void
     {
         $val = 200;
         $digits = 3;
         $this->assertSame($digits, Math::digitsOf($val));
     }
 
-    public function testDigitsOfWithNegativeValues(): void
+    public function testDigitsOf_WithNegativeValues(): void
     {
         $val = -30;
         $digits = 2;
@@ -71,7 +71,7 @@ final class MathTest extends TestCase
         Math::factorial(-3);
     }
 
-    public function testDivRemFunction(): void
+    public function testDivRem_Function(): void
     {
         $a = 12;
         $b = 3;
@@ -81,7 +81,7 @@ final class MathTest extends TestCase
         $this->assertEquals($a % $b, $remainder);
     }
 
-    public function testTryParseIntSucceedsWithCorrectValues(): void
+    public function testTryParseInt_SucceedsWithCorrectValues(): void
     {
         $input = '204';
         $expected = 204;
@@ -91,14 +91,14 @@ final class MathTest extends TestCase
         $this->assertSame($expected, $result);
     }
 
-    public function testTryParseIntFailsWithIncorrectValues(): void
+    public function testTryParseInt_FailsWithIncorrectValues(): void
     {
         $input = '123abc';
         $parsed = Math::tryParseInt($input, $result);
         $this->assertFalse($parsed);
     }
 
-    public function testTryParseFloatSucceedsWithCorrectValues(): void
+    public function testTryParseFloat_SucceedsWithCorrectValues(): void
     {
         $input = '3.14';
         $expected = 3.14;
@@ -108,14 +108,14 @@ final class MathTest extends TestCase
         $this->assertSame($expected, $result);
     }
 
-    public function testTryParseFloatFailsWithIncorrectValues(): void
+    public function testTryParseFloat_FailsWithIncorrectValues(): void
     {
         $input = '123abc.456';
         $parsed = Math::tryParseFloat($input, $result);
         $this->assertFalse($parsed);
     }
 
-    public function testOverflowIsDetectedWhenAdding(): void
+    public function testCheckedAdd_DetectsOverflow(): void
     {
         $this->expectException(OverflowException::class);
         $a = PHP_INT_MAX;
@@ -123,7 +123,7 @@ final class MathTest extends TestCase
         Math::checkedAdd($a, $b);
     }
 
-    public function testOverflowIsDetectedWhenSubtracting(): void
+    public function testCheckedSubtract_DetectsOverflow(): void
     {
         $this->expectException(OverflowException::class);
         $a = PHP_INT_MIN;
@@ -131,7 +131,7 @@ final class MathTest extends TestCase
         Math::checkedSubtract($a, $b);
     }
 
-    public function testTryToDetectOverflowWhenAdding(): void
+    public function testTryCheckedAdd_DetectsOverflow(): void
     {
         $a = PHP_INT_MAX;
         $b = 1;
@@ -139,7 +139,7 @@ final class MathTest extends TestCase
         $this->assertFalse($overflows);
     }
 
-    public function testTryToDetectOverflowWhenSubtracting(): void
+    public function testTryCheckedSubtract_DetectsOverflow(): void
     {
         $a = PHP_INT_MIN;
         $b = 1;

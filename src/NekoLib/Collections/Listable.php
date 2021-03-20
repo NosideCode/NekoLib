@@ -3,8 +3,6 @@ namespace NekoLib\Collections;
 
 /**
  * Defines a collection of values that can be individually accessed by an index.
- *
- * @package NekoLib\Collections
  */
 interface Listable extends Collection
 {

@@ -10,8 +10,6 @@ use function count;
 
 /**
  * Represents a first-in-first-out (FIFO) collection.
- *
- * @package NekoLib\Collections
  */
 class Queue implements Collection
 {

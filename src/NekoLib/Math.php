@@ -16,8 +16,6 @@ use const PHP_INT_MIN;
 
 /**
  * Contains methods for performing basic numeric operations.
- *
- * @package NekoLib
  */
 final class Math
 {

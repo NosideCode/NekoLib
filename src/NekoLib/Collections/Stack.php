@@ -11,8 +11,6 @@ use function count;
 
 /**
  * Represents a last-in-first-out (LIFO) collection.
- *
- * @package NekoLib\Collections
  */
 class Stack implements Collection
 {

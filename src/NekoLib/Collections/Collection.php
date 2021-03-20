@@ -6,8 +6,6 @@ use IteratorAggregate;
 
 /**
  * Defines methods for collection manipulation.
- *
- * @package NekoLib\Collections
  */
 interface Collection extends Countable, IteratorAggregate
 {

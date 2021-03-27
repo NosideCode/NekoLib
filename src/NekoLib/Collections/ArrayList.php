@@ -4,7 +4,6 @@ namespace NekoLib\Collections;
 use ArrayIterator;
 use Iterator;
 use OutOfBoundsException;
-
 use function call_user_func;
 use function count;
 use function min;
@@ -186,7 +185,8 @@ class ArrayList implements Listable
      * @param int $index The zero-based index of the value to get.
      *
      * @return mixed
-     * @throws OutOfBoundsException If `$index` is less than zero or is equal to or greater than the size of the collection.
+     * @throws OutOfBoundsException If `$index` is less than zero or is equal to or greater than the size of the
+     *     collection.
      */
     public function get(int $index): mixed
     {
@@ -204,7 +204,8 @@ class ArrayList implements Listable
      * @param int $index The zero-based index of the value to set.
      * @param mixed $value The value to set.
      *
-     * @throws OutOfBoundsException If `$index` is less than zero or is equal to or greater than the size of the collection.
+     * @throws OutOfBoundsException If `$index` is less than zero or is equal to or greater than the size of the
+     *     collection.
      */
     public function set(int $index, mixed $value): void
     {
@@ -297,7 +298,8 @@ class ArrayList implements Listable
      *
      * @param int $index The zero-based index of the value to remove.
      *
-     * @throws OutOfBoundsException If `$index` is less than zero or is equal to or greater than the size of the collection.
+     * @throws OutOfBoundsException If `$index` is less than zero or is equal to or greater than the size of the
+     *     collection.
      */
     public function removeAt(int $index): void
     {
@@ -319,9 +321,11 @@ class ArrayList implements Listable
      * Removes a range of values from the list.
      *
      * @param int $index The zero-based starting index of the range of values to remove.
-     * @param int $count The number of values to remove. If the count is negative, nothing will be removed from the list.
+     * @param int $count The number of values to remove. If the count is negative, nothing will be removed from the
+     *     list.
      *
-     * @throws OutOfBoundsException If `$index` is less than zero or is equal to or greater than the size of the collection.
+     * @throws OutOfBoundsException If `$index` is less than zero or is equal to or greater than the size of the
+     *     collection.
      */
     public function removeRange(int $index, int $count): void
     {
@@ -374,7 +378,8 @@ class ArrayList implements Listable
      *
      * @return ArrayList A new list containing the sliced values. If `$count` is zero or a negative
      * value, an empty list is returned.
-     * @throws OutOfBoundsException If `$index` is less than zero or is equal to or greater than the size of the collection.
+     * @throws OutOfBoundsException If `$index` is less than zero or is equal to or greater than the size of the
+     *     collection.
      */
     public function slice(int $index, int $count): ArrayList
     {
@@ -398,6 +403,7 @@ class ArrayList implements Listable
      * Sorts the values in the list.
      *
      * @param int $sort_mode The sorting mode.
+     *
      * @link https://www.php.net/manual/es/function.sort.php
      */
     public function sort(int $sort_mode = SORT_REGULAR): void
@@ -412,7 +418,8 @@ class ArrayList implements Listable
      * Sorts the values in the list using a custom comparison function.
      *
      * @param callable $comparator The comparison function that must return an integer less than, equal to,
-     * or greater than zero if the first argument is considered to be respectively less than, equal to, or greater than the second.
+     * or greater than zero if the first argument is considered to be respectively less than, equal to, or greater than
+     *     the second.
      */
     public function usort(callable $comparator): void
     {

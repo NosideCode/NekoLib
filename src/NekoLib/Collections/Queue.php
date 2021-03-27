@@ -4,7 +4,6 @@ namespace NekoLib\Collections;
 use ArrayIterator;
 use Iterator;
 use OutOfBoundsException;
-
 use function array_shift;
 use function count;
 

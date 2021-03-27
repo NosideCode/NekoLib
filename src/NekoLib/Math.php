@@ -3,7 +3,6 @@ namespace NekoLib;
 
 use InvalidArgumentException;
 use OverflowException;
-
 use function abs;
 use function filter_var;
 use function floor;

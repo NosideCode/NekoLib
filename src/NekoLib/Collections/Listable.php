@@ -19,7 +19,8 @@ interface Listable extends Collection
      * @param int $index The zero-based index of the value to get.
      *
      * @return mixed
-     * @throws OutOfBoundsException If index is less than zero or is equal to or greater than the size of the collection.
+     * @throws OutOfBoundsException If index is less than zero or is equal to or greater than the size of the
+     *     collection.
      */
     public function get(int $index): mixed;
 
@@ -29,7 +30,8 @@ interface Listable extends Collection
      * @param int $index The zero-based index of the value to set.
      * @param mixed $value The value to set.
      *
-     * @throws OutOfBoundsException If index is less than zero or is equal to or greater than the size of the collection.
+     * @throws OutOfBoundsException If index is less than zero or is equal to or greater than the size of the
+     *     collection.
      */
     public function set(int $index, mixed $value): void;
 
@@ -48,7 +50,8 @@ interface Listable extends Collection
      * @param int $index The zero-based index at which the value should be inserted.
      * @param mixed $value The value to insert.
      *
-     * @throws OutOfBoundsException If index is less than zero or is equal to or greater than the size of the collection.
+     * @throws OutOfBoundsException If index is less than zero or is equal to or greater than the size of the
+     *     collection.
      */
     public function insert(int $index, mixed $value): void;
 
@@ -57,7 +60,8 @@ interface Listable extends Collection
      *
      * @param mixed $value The value to remove.
      *
-     * @throws OutOfBoundsException If index is less than zero or is equal to or greater than the size of the collection.
+     * @throws OutOfBoundsException If index is less than zero or is equal to or greater than the size of the
+     *     collection.
      */
     public function remove(mixed $value): void;
 

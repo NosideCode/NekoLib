@@ -11,6 +11,9 @@ use function sort;
 use function usort;
 use const SORT_REGULAR;
 
+/**
+ * Represents a list of values that can be accessed by index.
+ */
 class ArrayList implements Listable
 {
     private array $items = [];

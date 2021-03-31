@@ -100,8 +100,9 @@ class ArrayList implements Listable
      */
     public function toArray(): array
     {
-        // The order of the keys may be lost, (glaring at you, insertRange())
-        // so we need to manually copy each value in a new array.
+        // We cannot use array_slice() as the order of the keys
+        // may have been lost (I'm looking at you, insertRange),
+        // so we need to manually copy each value into a new array.
         $result = [];
         for ($i = 0; $i < $this->length; ++$i)
         {

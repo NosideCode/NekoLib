@@ -322,11 +322,31 @@ class LinkedList implements Collection
     /**
      * Remove the first occurrence of the value from the linked list.
      *
-     * @param mixed $value
+     * @param mixed $value The value to remove.
      */
     public function remove(mixed $value): void
     {
         $node = $this->find($value);
+        if ($node !== null)
+        {
+            $this->removeNode($node);
+        }
+    }
+
+    /**
+     * Removes the node from the linked list.
+     *
+     * @param LinkedListNode $node The node to remove.
+     *
+     * @throws InvalidArgumentException If the node does not belong to this linked list.
+     */
+    public function removeNode(LinkedListNode $node): void
+    {
+        if ($node->getList() !== $this)
+        {
+            throw new InvalidArgumentException('The node belongs to a different list');
+        }
+
         $next = $node->getNext();
         $prev = $node->getPrevious();
 

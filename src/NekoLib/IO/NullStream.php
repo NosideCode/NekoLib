@@ -6,12 +6,12 @@ namespace NekoLib\IO;
  */
 final class NullStream extends Stream
 {
-    public function isReadable(): bool
+    public function canRead(): bool
     {
         return true;
     }
 
-    public function isWritable(): bool
+    public function canWrite(): bool
     {
         return true;
     }

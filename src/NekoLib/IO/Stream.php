@@ -13,14 +13,14 @@ abstract class Stream
      *
      * @return bool
      */
-    abstract public function isReadable(): bool;
+    abstract public function canRead(): bool;
 
     /**
      * Determines whether the stream can be written.
      *
      * @return bool
      */
-    abstract public function isWritable(): bool;
+    abstract public function canWrite(): bool;
 
     /**
      * Determines whether the stream has reached the end.
@@ -118,12 +118,12 @@ abstract class Stream
      */
     public function copyTo(Stream $stream): void
     {
-        if (!$this->isReadable())
+        if (!$this->canRead())
         {
             throw new IOException('Stream is not readable');
         }
 
-        if (!$stream->isWritable())
+        if (!$stream->canWrite())
         {
             throw new IOException('Destination stream is not writable');
         }

@@ -39,7 +39,7 @@ class MemoryStream extends Stream
      *
      * @return bool
      */
-    public function isReadable(): bool
+    public function canRead(): bool
     {
         return true;
     }
@@ -49,7 +49,7 @@ class MemoryStream extends Stream
      *
      * @return bool
      */
-    public function isWritable(): bool
+    public function canWrite(): bool
     {
         return true;
     }

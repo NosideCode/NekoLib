@@ -68,10 +68,17 @@ class MemoryStream extends Stream
      * Returns the stream size.
      *
      * @return int
+     * @throws IOException If fstat failed.
      */
     public function getSize(): int
     {
-        return fstat($this->memory)['size'];
+        $stat = fstat($this->memory);
+        if ($stat === false)
+        {
+            throw new IOException('fstat failed');
+        }
+
+        return $stat['size'];
     }
 
     /**

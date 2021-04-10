@@ -30,7 +30,7 @@ class MemoryStream extends Stream
         $this->memory = fopen('php://memory', 'rb+');
         if ($this->memory === false)
         {
-            throw new IOException('Failed to open the memory stream');
+            throw new IOException('Could not open the memory stream');
         }
     }
 
@@ -157,7 +157,7 @@ class MemoryStream extends Stream
         if ($data === false)
         {
             $data = null;
-            throw new IOException('Failed to read the stream');
+            throw new IOException('Could not read the stream');
         }
 
         return strlen($data);
@@ -183,7 +183,7 @@ class MemoryStream extends Stream
         $bytes = fwrite($this->memory, $data, $length);
         if ($bytes === false)
         {
-            throw new IOException('Failed to write to the stream');
+            throw new IOException('Could not write to the stream');
         }
 
         return $bytes;

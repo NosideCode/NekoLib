@@ -60,4 +60,8 @@ final class NullStream extends Stream
     public function close(): void
     {
     }
+
+    public function copyTo(Stream $stream): void
+    {
+    }
 }

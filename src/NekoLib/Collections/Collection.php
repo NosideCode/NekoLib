@@ -15,14 +15,14 @@ interface Collection extends Countable, IteratorAggregate
     public function clear(): void;
 
     /**
-     * Checks if the collection is empty.
+     * Determines whether the collection is empty.
      *
      * @return bool
      */
     public function isEmpty(): bool;
 
     /**
-     * Checks if the given value exists in the collection.
+     * Determines whether the collection contains the given value.
      *
      * @param mixed $value The value to search.
      *
@@ -34,12 +34,12 @@ interface Collection extends Countable, IteratorAggregate
      * Copies the values of the collection to an array.
      *
      * @param array $destination The destination array.
-     * @param int $index The zero-based index in `$array` at which copy begins.
+     * @param int $index The zero-based index in $array at which copy begins.
      */
     public function copyTo(array &$destination, int $index = 0): void;
 
     /**
-     * Returns the collection as a one-dimension array.
+     * Gets the collection values as a one-dimensional array.
      *
      * @return array
      */

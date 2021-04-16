@@ -22,7 +22,7 @@ class ArrayList implements Listable
     /**
      * ArrayList constructor.
      *
-     * @param Collection|array|null $collection If not NULL, the list will copy the values in the collection.
+     * @param Collection|array|null $collection A collection or array of initial values.
      */
     public function __construct(Collection|array $collection = null)
     {
@@ -48,7 +48,7 @@ class ArrayList implements Listable
     }
 
     /**
-     * Checks if the list is empty.
+     * Determines whether the list is empty.
      *
      * @return bool
      */
@@ -58,7 +58,7 @@ class ArrayList implements Listable
     }
 
     /**
-     * Returns the number of values in the list.
+     * Gets the number of items in the list.
      *
      * @return int
      */
@@ -68,7 +68,7 @@ class ArrayList implements Listable
     }
 
     /**
-     * Checks if the given value exists in the list.
+     * Determines whether the list contains the given value.
      *
      * @param mixed $value The value to search.
      *
@@ -83,7 +83,7 @@ class ArrayList implements Listable
      * Copies the values of the list to an array.
      *
      * @param array $destination The destination array.
-     * @param int $index The zero-based index in `$array` at which copy begins.
+     * @param int $index The zero-based index in $array at which copy begins.
      */
     public function copyTo(array &$destination, int $index = 0): void
     {
@@ -94,15 +94,14 @@ class ArrayList implements Listable
     }
 
     /**
-     * Returns the list as a one-dimension array.
+     * Gets the list values as a one-dimensional array.
      *
      * @return array
      */
     public function toArray(): array
     {
-        // We cannot use array_slice() as the order of the keys
-        // may have been lost (I'm looking at you, insertRange),
-        // so we need to manually copy each value into a new array.
+        // We cannot use array_slice() as the order of the keys may have been lost,
+        // so we need to copy each value manually.
         $result = [];
         for ($i = 0; $i < $this->length; ++$i)
         {
@@ -113,7 +112,7 @@ class ArrayList implements Listable
     }
 
     /**
-     * Returns an iterator for the list.
+     * Gets an iterator for the list.
      *
      * @return Iterator
      */
@@ -123,11 +122,11 @@ class ArrayList implements Listable
     }
 
     /**
-     * Returns the index of the first occurrence of the value in the list.
+     * Gets the index of the first occurrence of the value in the list.
      *
      * @param mixed $value The value to search.
      *
-     * @return int The index of the value or -1 if the value does not exists in the list.
+     * @return int The index of the value or -1 if the value does not exist in the list.
      */
     public function indexOf(mixed $value): int
     {
@@ -143,12 +142,11 @@ class ArrayList implements Listable
     }
 
     /**
-     * Returns the index of the last occurrence of the value in the list.
-     * Returns the zero-based index of the last occurrence of a value in the List<T> or in a portion of it.
+     * Gets the index of the last occurrence of the value in the list.
      *
-     * @param mixed $value
+     * @param mixed $value The value to search.
      *
-     * @return int The index of the value or -1 if the value does not exists in the list.
+     * @return int The index of the value or -1 if the value does not exist in the list.
      */
     public function lastIndexOf(mixed $value): int
     {
@@ -174,7 +172,7 @@ class ArrayList implements Listable
     }
 
     /**
-     * Adds the values of the collection at the end of the list.
+     * Adds a collection or array of values to the list.
      *
      * @param Collection|array $collection The collection whose values should be added to the end of the list.
      */
@@ -189,14 +187,13 @@ class ArrayList implements Listable
      * @param int $index The zero-based index of the value to get.
      *
      * @return mixed
-     * @throws OutOfBoundsException If `$index` is less than zero or is equal to or greater than the size of the
-     *     collection.
+     * @throws OutOfBoundsException If the index is less than zero or is equal to or greater than the size of the list.
      */
     public function get(int $index): mixed
     {
         if ($index < 0 || $index >= $this->length)
         {
-            throw new OutOfBoundsException('Index was out of range. Must be non-negative and less than the size of the collection');
+            throw new OutOfBoundsException('Index was out of range. Must be non-negative and less than the size of the list');
         }
 
         return $this->items[$index];
@@ -208,8 +205,7 @@ class ArrayList implements Listable
      * @param int $index The zero-based index of the value to set.
      * @param mixed $value The value to set.
      *
-     * @throws OutOfBoundsException If `$index` is less than zero or is equal to or greater than the size of the
-     *     collection.
+     * @throws OutOfBoundsException If the index is less than zero or is equal to or greater than the size of the list.
      */
     public function set(int $index, mixed $value): void
     {
@@ -222,12 +218,12 @@ class ArrayList implements Listable
     }
 
     /**
-     * Inserts a value to the list at the specified index.
+     * Inserts a value into the list at the specified index.
      *
      * @param int $index The zero-based index at which the value should be inserted.
      * @param mixed $value The value to insert.
      *
-     * @throws OutOfBoundsException If `$index` is less than zero or greater than the size of the collection.
+     * @throws OutOfBoundsException If the index is less than zero or greater than the size of the list.
      */
     public function insert(int $index, mixed $value): void
     {
@@ -246,12 +242,12 @@ class ArrayList implements Listable
     }
 
     /**
-     * Inserts the values of the collection into the list at the specified index.
+     * Inserts a collection or array of values at the specified index in the list.
      *
-     * @param int $index The zero-based index at which the new values should be inserted.
-     * @param Collection|array $collection
+     * @param int $index The zero-based index at which the values should be inserted.
+     * @param Collection|array $collection The collection or array of values to insert.
      *
-     * @throws OutOfBoundsException If `$index` is less than zero or greater than the size of the collection.
+     * @throws OutOfBoundsException If the index is less than zero or greater than the size of the list.
      */
     public function insertRange(int $index, Collection|array $collection): void
     {
@@ -298,12 +294,11 @@ class ArrayList implements Listable
     }
 
     /**
-     * Removes the list value at the specified index.
+     * Removes the value at the specified index.
      *
-     * @param int $index The zero-based index of the value to remove.
+     * @param int $index The zero based index of the value to remove.
      *
-     * @throws OutOfBoundsException If `$index` is less than zero or is equal to or greater than the size of the
-     *     collection.
+     * @throws OutOfBoundsException If the index is less than zero or is equal to or greater than the size of the list.
      */
     public function removeAt(int $index): void
     {
@@ -324,12 +319,10 @@ class ArrayList implements Listable
     /**
      * Removes a range of values from the list.
      *
-     * @param int $index The zero-based starting index of the range of values to remove.
-     * @param int $count The number of values to remove. If the count is negative, nothing will be removed from the
-     *     list.
+     * @param int $index The zero-based index where the range of values to be removed begins.
+     * @param int $count The number of values to remove. If the count is negative, nothing will be removed.
      *
-     * @throws OutOfBoundsException If `$index` is less than zero or is equal to or greater than the size of the
-     *     collection.
+     * @throws OutOfBoundsException If the index is less than zero or is equal to or greater than the size of the list.
      */
     public function removeRange(int $index, int $count): void
     {
@@ -375,15 +368,13 @@ class ArrayList implements Listable
     }
 
     /**
-     * Extracts a slice of the list at the specified index.
+     * Extracts a slice of the list.
      *
-     * @param int $index The zero-based starting index where the slicing begins.
-     * @param int $count The number of values to take.
+     * @param int $index The zero-based index where the range of values begins.
+     * @param int $count The number of values to copy. If the count is negative, nothing will be copied.
      *
-     * @return ArrayList A new list containing the sliced values. If `$count` is zero or a negative
-     * value, an empty list is returned.
-     * @throws OutOfBoundsException If `$index` is less than zero or is equal to or greater than the size of the
-     *     collection.
+     * @return ArrayList
+     * @throws OutOfBoundsException If the index is less than zero or is equal to or greater than the size of the list.
      */
     public function slice(int $index, int $count): ArrayList
     {
@@ -419,11 +410,11 @@ class ArrayList implements Listable
     }
 
     /**
-     * Sorts the values in the list using a custom comparison function.
+     * Sort the values in the list using a user-defined comparison function.
      *
-     * @param callable $comparator The comparison function that must return an integer less than, equal to,
-     * or greater than zero if the first argument is considered to be respectively less than, equal to, or greater than
-     *     the second.
+     * @param callable $comparator The comparison function must return an integer less than, equal to,
+     * or greater than zero if the first argument is considered to be respectively less than, equal to,
+     * or greater than the second.
      */
     public function usort(callable $comparator): void
     {
@@ -433,9 +424,9 @@ class ArrayList implements Listable
     }
 
     /**
-     * Checks that all the values in the list matches the condition.
+     * Determines whether the values in the list match the condition.
      *
-     * @param callable $match A callable that returns a boolean value.
+     * @param callable $match A function that must return a boolean value.
      *
      * @return bool
      */
@@ -453,9 +444,9 @@ class ArrayList implements Listable
     }
 
     /**
-     * Checks that at least one of the values in the list matches the condition.
+     * Determines whether at least one value in the list matches the condition.
      *
-     * @param callable $match A callable that returns a boolean value.
+     * @param callable $match A function that must return a boolean value.
      *
      * @return bool
      */
@@ -473,11 +464,11 @@ class ArrayList implements Listable
     }
 
     /**
-     * Filters the values of the list that matches the condition.
+     * Filters the values of the list.
      *
-     * @param callable $match A callable that returns a boolean value.
+     * @param callable $match A function that must return a boolean value.
      *
-     * @return ArrayList A new list containing the filtered values.
+     * @return ArrayList
      */
     public function filter(callable $match): ArrayList
     {

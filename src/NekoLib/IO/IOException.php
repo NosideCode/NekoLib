@@ -4,6 +4,9 @@ namespace NekoLib\IO;
 use Exception;
 use Throwable;
 
+/**
+ * Thrown when an IO error occurs.
+ */
 class IOException extends Exception
 {
     public function __construct($message = "", $code = 0, Throwable $previous = null)

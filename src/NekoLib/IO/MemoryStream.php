@@ -65,7 +65,7 @@ class MemoryStream extends Stream
     }
 
     /**
-     * Returns the stream size.
+     * Gets the stream size.
      *
      * @return int
      * @throws IOException If fstat failed.
@@ -84,10 +84,9 @@ class MemoryStream extends Stream
     /**
      * Sets the size of the stream.
      *
-     * @param int $size The new size value. If the value is less than the current
-     * stream length, the stream is truncated.
+     * @param int $size The new size. If the new size is less than the current size, the stream will be truncated.
      *
-     * @throws IOException If ftruncate fails.
+     * @throws IOException If ftruncate failed.
      */
     public function setSize(int $size): void
     {
@@ -98,7 +97,7 @@ class MemoryStream extends Stream
     }
 
     /**
-     * Returns the current position in the stream.
+     * Gets the position in the stream.
      *
      * @return int
      * @throws IOException If ftell failed.
@@ -129,7 +128,7 @@ class MemoryStream extends Stream
     /**
      * Seeks on the stream.
      *
-     * @param int $offset The new position within the stream, relative to `$whence` value.
+     * @param int $offset The new position within the stream, relative to $whence value.
      * @param int $whence The seek reference point.
      *
      * @throws IOException If fseek failed.
@@ -167,8 +166,8 @@ class MemoryStream extends Stream
      * Writes a block of bytes to the stream.
      *
      * @param string $data The data to be written.
-     * @param int $length The maximum number of bytes to write. If `$length` is less than zero,
-     * writing will stop until the end of `$data` is reached.
+     * @param int $length The maximum number of bytes to write. If the value is less than zero, writing will stop
+     * until the end of $data is reached.
      *
      * @return int The number of bytes written.
      * @throws IOException If the write operation failed.
@@ -190,7 +189,7 @@ class MemoryStream extends Stream
     }
 
     /**
-     * Does nothing since any data written to a MemoryStream object is written into RAM.
+     * It does nothing since any data is directly written to memory.
      */
     public function flush(): void
     {
@@ -205,12 +204,11 @@ class MemoryStream extends Stream
     }
 
     /**
-     * Writes the entire contents of the memory stream to another stream.
+     * Writes the entire content of the memory stream to another stream.
      *
+     * @param Stream $stream The stream to write the contents of this stream to.
      *
-     * @param Stream $stream The stream to write this memory stream to.
-     *
-     * @throws IOException
+     * @throws IOException If this stream is not readable or the destination stream is not writable.
      */
     public function writeTo(Stream $stream): void
     {

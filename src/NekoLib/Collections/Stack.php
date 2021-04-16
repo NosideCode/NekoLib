@@ -19,7 +19,7 @@ class Stack implements Collection
     /**
      * Stack constructor.
      *
-     * @param Collection|array|null $collection If not NULL, the stack will copy the values in the collection.
+     * @param Collection|array|null $collection A collection or array of initial values.
      */
     public function __construct(Collection|array $collection = null)
     {
@@ -45,7 +45,7 @@ class Stack implements Collection
     }
 
     /**
-     * Checks if the stack is empty.
+     * Determines whether the stack is empty.
      *
      * @return bool
      */
@@ -55,7 +55,7 @@ class Stack implements Collection
     }
 
     /**
-     * Returns the number of values in the stack.
+     * Gets the number of items in the stack.
      *
      * @return int
      */
@@ -65,7 +65,7 @@ class Stack implements Collection
     }
 
     /**
-     * Checks if the given value exists in the stack.
+     * Determines whether the stack contains the given value.
      *
      * @param mixed $value The value to search.
      *
@@ -88,7 +88,7 @@ class Stack implements Collection
      * Copies the values of the stack to an array.
      *
      * @param array $destination The destination array.
-     * @param int $index The zero-based index in `$array` at which copy begins.
+     * @param int $index The zero-based index in $array at which copy begins.
      */
     public function copyTo(array &$destination, int $index = 0): void
     {
@@ -99,7 +99,7 @@ class Stack implements Collection
     }
 
     /**
-     * Returns the stack values in a one-dimension array.
+     * Gets the stack values as a one-dimensional array.
      *
      * @return array
      */
@@ -109,7 +109,7 @@ class Stack implements Collection
     }
 
     /**
-     * Returns an iterator for the stack.
+     * Gets an iterator for the stack.
      *
      * @return Iterator
      */
@@ -119,7 +119,7 @@ class Stack implements Collection
     }
 
     /**
-     * Pushes a new value at the top of the stack.
+     * Pushes a value at the top of the stack.
      *
      * @param mixed $value The value to push.
      */
@@ -147,11 +147,11 @@ class Stack implements Collection
     }
 
     /**
-     * Tries to get and remove the value at the top of the stack.
+     * Tries to remove and return the value at the top of the stack.
      *
      * @param mixed $result The value at the top of the stack or NULL if there is none.
      *
-     * @return bool True if there is a value at the top of the stack or False if the stack is empty.
+     * @return bool A boolean value that indicates whether the operation succeed or not.
      */
     public function tryPop(mixed &$result): bool
     {
@@ -167,7 +167,7 @@ class Stack implements Collection
     }
 
     /**
-     * Returns the value at the top of the stack without removing it.
+     * Gets the value at the top of the stack without removing it.
      *
      * @return mixed
      * @throws OutOfBoundsException If the stack is empty.
@@ -183,11 +183,11 @@ class Stack implements Collection
     }
 
     /**
-     * Tries to get the value at the top of the stack without removing it.
+     * Tries to get the value at the top of the stack.
      *
      * @param mixed $result The value at the top of the stack or NULL if there is none.
      *
-     * @return bool True if there is a value at the top of the stack or False if the stack is empty.
+     * @return bool A boolean value that indicates whether the operation succeed or not.
      */
     public function tryPeek(mixed &$result): bool
     {

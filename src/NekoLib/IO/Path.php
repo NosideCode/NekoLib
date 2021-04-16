@@ -18,7 +18,7 @@ use const DIRECTORY_SEPARATOR;
 final class Path
 {
     /**
-     * Determines whether the given char is a directory separator.
+     * Determines whether the given character is a directory separator.
      *
      * @param string $char The char to test.
      *
@@ -35,7 +35,7 @@ final class Path
     }
 
     /**
-     * Determines whether the given path ends with a directory separator character.
+     * Determines whether the given path ends with a directory separator.
      *
      * @param string $path The path to test.
      *
@@ -48,9 +48,9 @@ final class Path
     }
 
     /**
-     * Returns the directory name of the given path.
+     * Gets the directory name part of the path.
      *
-     * @param string $path The path of a file or directory.
+     * @param string $path The path from which to obtain the directory name.
      *
      * @return string
      */
@@ -82,7 +82,7 @@ final class Path
     }
 
     /**
-     * Returns the file name and extension of the given path.
+     * Gets the file name part of the path.
      *
      * @param string $path The path from which to obtain the file name and extension.
      *
@@ -105,7 +105,7 @@ final class Path
     }
 
     /**
-     * Returns the file name without the extension.
+     * Gets the file name without extension.
      *
      * @param string $path The path from which to obtain the file name.
      *
@@ -119,7 +119,7 @@ final class Path
     }
 
     /**
-     * Determines whether the given path has a file extension.
+     * Determines whether the path has a file extension.
      *
      * @param string $path The path to test.
      *
@@ -148,12 +148,11 @@ final class Path
     }
 
     /**
-     * Returns the file extension (including the period) of the given path.
+     * Gets the file extension (including the period) of the path.
      *
      * @param string $path The path from which to obtain the file extension.
      *
-     * @return string The extension of the given path or empty string if the
-     * path is empty or does not have an extension.
+     * @return string The extension of the path or an empty string if the path is empty or does not have an extension.
      */
     public static function getExtension(string $path): string
     {
@@ -172,11 +171,11 @@ final class Path
     }
 
     /**
-     * Changes the extension of a file path.
+     * Changes the file extension of a path.
      *
-     * @param string $path The path to modify.
-     * @param string|null $extension The new extension (with or without a period).
-     * Pass NULL to remove the extension from the given path.
+     * @param string $path The path to change.
+     * @param string|null $extension The new file extension (with or without a period).
+     * If NULL is passed, the extension will be removed from the path.
      *
      * @return string
      */
@@ -218,7 +217,7 @@ final class Path
     }
 
     /**
-     * Determines whether the given path has a root.
+     * Determines whether the path has a root.
      *
      * @param string $path The path to test.
      *
@@ -230,7 +229,7 @@ final class Path
     }
 
     /**
-     * Returns the root directory of the given path.
+     * Gets the root part of the path.
      *
      * @param string $path The path from which to obtain the root.
      *
@@ -246,9 +245,8 @@ final class Path
      *
      * @param string ...$paths The list of paths to concatenate.
      *
-     * @return string The combined path. If an argument other than the first
-     * contains a rooted path, the previous values are ignored and the resulting
-     * path begins with that rooted value.
+     * @return string The combined path. If an argument other than the first contains a rooted path, all previous
+     * values are ignored and the resulting path begins with that rooted value.
      */
     public static function combine(string ...$paths): string
     {
@@ -291,10 +289,10 @@ final class Path
     /**
      * Concatenates a list of paths into a single path.
      *
-     * @param string ...$paths The path list to concatenate.
+     * @param string ...$paths The list of paths to concatenate.
      *
-     * @return string The concatenated path. Unlike combine, this method does not check
-     * for a rooted path and only concatenates adding a directory separator when needed.
+     * @return string The concatenated path. Unlike combine(), this method does not look for a rooted path and only
+     * concatenates by adding directory separators when necessary.
      */
     public static function join(string ...$paths): string
     {
@@ -358,13 +356,13 @@ final class Path
     }
 
     /**
-     * Returns the absolute path for the given path.
-     * Unlike realpath, this method does not check if the resulting path exists.
+     * Gets the absolute path.
      *
      * @param string $path The path to resolve.
      *
-     * @return string
-     * @throws InvalidArgumentException If the path is empty or contains illegal characters.
+     * @return string The absolute or canonical path. Unlike php's realpath() function, this method does not
+     * check if the path exists.
+     * @throws InvalidArgumentException If the path is empty or contains illegal characters
      */
     public static function getFullPath(string $path): string
     {
@@ -436,7 +434,7 @@ final class Path
                     {
                         if (self::isDirectorySeparator($canonical[$s]))
                         {
-                            // avoid removing the complete "\tmp\" segment in cases like \\?\C:\tmp\..\, C:\tmp\..
+                            // Avoid removing the complete "\tmp\" segment in cases like \\?\C:\tmp\..\, C:\tmp\..
                             $length = ($i + 3 >= $len && $s === $skip) ? $s + 1 : $s;
                             $canonical = substr($canonical, 0, $length);
                             break;
@@ -466,7 +464,7 @@ final class Path
     }
 
     /**
-     * Returns the root length for the given path.
+     * Gets the root length for the given path.
      *
      * "/home/user' => 1 (root="/")
      * "C:\Windows" => 3 (root="C:\")
@@ -487,7 +485,7 @@ final class Path
     }
 
     /**
-     * Returns the root length for a Windows path.
+     * Gets the root length for a Windows path.
      * This method should not be called directly, always call getRootLength() instead.
      *
      * @param string $path
@@ -531,8 +529,7 @@ final class Path
     }
 
     /**
-     * Tests if the platform PHP is running on is a Windows machine.
-     * This helps decide which chars count as directory separator.
+     * Determines whether PHP is running on a Windows machine.
      *
      * @return bool
      */

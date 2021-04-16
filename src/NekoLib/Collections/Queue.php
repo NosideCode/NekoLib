@@ -18,7 +18,7 @@ class Queue implements Collection
     /**
      * Queue constructor.
      *
-     * @param Collection|array|null $collection If not NULL, the queue will copy the values in the collection.
+     * @param Collection|array|null $collection A collection or array of initial values.
      */
     public function __construct(Collection|array $collection = null)
     {
@@ -44,7 +44,7 @@ class Queue implements Collection
     }
 
     /**
-     * Checks if the queue is empty.
+     * Determines whether the queue is empty.
      *
      * @return bool
      */
@@ -54,7 +54,7 @@ class Queue implements Collection
     }
 
     /**
-     * Returns the number of values in the queue.
+     * Gets the number of items in the queue.
      *
      * @return int
      */
@@ -64,7 +64,7 @@ class Queue implements Collection
     }
 
     /**
-     * Checks if the given value exists in the queue.
+     * Determines whether the queue contains the given value.
      *
      * @param mixed $value The value to search.
      *
@@ -87,7 +87,7 @@ class Queue implements Collection
      * Copies the values of the queue to an array.
      *
      * @param array $destination The destination array.
-     * @param int $index The zero-based index in `$array` at which copy begins.
+     * @param int $index The zero-based index in $array at which copy begins.
      */
     public function copyTo(array &$destination, int $index = 0): void
     {
@@ -98,7 +98,7 @@ class Queue implements Collection
     }
 
     /**
-     * Returns the queue as a one-dimension array.
+     * Gets the queue values as a one-dimensional array.
      *
      * @return array
      */
@@ -108,7 +108,7 @@ class Queue implements Collection
     }
 
     /**
-     * Returns an iterator for the queue.
+     * Gets an iterator for the queue.
      *
      * @return Iterator
      */
@@ -118,7 +118,7 @@ class Queue implements Collection
     }
 
     /**
-     * Adds a new value at the end of the queue.
+     * Adds a value at the end of the queue.
      *
      * @param mixed $value The value to add.
      */
@@ -146,11 +146,11 @@ class Queue implements Collection
     }
 
     /**
-     * Tries to get and remove the value at the beginning of the queue.
+     * Tries to remove and return the value at the beginning of the queue.
      *
      * @param mixed $result The value at the beginning of the queue or NULL if there is none.
      *
-     * @return bool True if there is a value at the beginning of the queue or False if the queue is empty.
+     * @return bool A boolean value that indicates whether the operation succeed or not.
      */
     public function tryDequeue(mixed &$result): bool
     {
@@ -166,7 +166,7 @@ class Queue implements Collection
     }
 
     /**
-     * Returns the value at the beginning of the queue without removing it.
+     * Gets the value at the beginning of the queue without removing it.
      *
      * @return mixed
      * @throws OutOfBoundsException If the queue is empty.
@@ -182,11 +182,11 @@ class Queue implements Collection
     }
 
     /**
-     * Tries to get the value at the beginning of the queue without removing it.
+     * Tries to get the value at the beginning of the queue.
      *
      * @param mixed $result The value at the beginning of the queue or NULL if there is none.
      *
-     * @return bool True if there is a value at the beginning of the queue or False if the queue is empty.
+     * @return bool A boolean value that indicates whether the operation succeed or not.
      */
     public function tryPeek(mixed &$result): bool
     {

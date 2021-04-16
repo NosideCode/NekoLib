@@ -30,7 +30,7 @@ abstract class Stream
     abstract public function endOfStream(): bool;
 
     /**
-     * Returns the stream size.
+     * Gets the stream size.
      *
      * @return int
      */
@@ -39,15 +39,14 @@ abstract class Stream
     /**
      * Sets the size of the stream.
      *
-     * @param int $size The new size value. If the value is less than the current
-     * stream length, the stream is truncated.
+     * @param int $size The new size. If the new size is less than the current size, the stream will be truncated.
      *
      * @throws IOException
      */
     abstract public function setSize(int $size): void;
 
     /**
-     * Returns the current position in the stream.
+     * Gets the position in the stream.
      *
      * @return int
      * @throws IOException
@@ -66,7 +65,7 @@ abstract class Stream
     /**
      * Seeks on the stream.
      *
-     * @param int $offset The new position within the stream, relative to `$whence` value.
+     * @param int $offset The new position within the stream, relative to $whence value.
      * @param int $whence The seek reference point.
      *
      * @throws IOException
@@ -88,8 +87,8 @@ abstract class Stream
      * Writes a block of bytes to the stream.
      *
      * @param string $data The data to be written.
-     * @param int $length The maximum number of bytes to write. If `$length` is less than zero,
-     * writing will stop until the end of `$data` is reached.
+     * @param int $length The maximum number of bytes to write. If the value is less than zero, writing will stop
+     * until the end of $data is reached.
      *
      * @return int The number of bytes written.
      * @throws IOException

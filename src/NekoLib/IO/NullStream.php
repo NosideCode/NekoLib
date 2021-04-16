@@ -2,7 +2,7 @@
 namespace NekoLib\IO;
 
 /**
- * A stream that does nothing.
+ * A stream that points to the void of the universe.
  */
 final class NullStream extends Stream
 {

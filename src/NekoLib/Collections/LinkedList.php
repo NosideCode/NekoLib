@@ -16,7 +16,7 @@ class LinkedList implements Collection
     /**
      * LinkedList constructor.
      *
-     * @param Collection|array|null $collection If not NULL, the linked list will copy the values in the collection.
+     * @param Collection|array|null $collection A collection or array of initial values.
      */
     public function __construct(Collection|array $collection = null)
     {
@@ -30,7 +30,7 @@ class LinkedList implements Collection
     }
 
     /**
-     * Removes all nodes from the linked list.
+     * Removes all values from the linked list.
      */
     public function clear(): void
     {
@@ -50,7 +50,7 @@ class LinkedList implements Collection
     }
 
     /**
-     * Determines whether the value exists in the linked list.
+     * Determines whether the linked list contains the given value.
      *
      * @param mixed $value The value to search.
      *
@@ -76,7 +76,7 @@ class LinkedList implements Collection
      * Copies the values of the linked list to an array.
      *
      * @param array $destination The destination array.
-     * @param int $index The zero-based index in `$array` at which copy begins.
+     * @param int $index The zero-based index in $array at which copy begins.
      */
     public function copyTo(array &$destination, int $index = 0): void
     {
@@ -89,7 +89,7 @@ class LinkedList implements Collection
     }
 
     /**
-     * Returns the linked list values as a one-dimension array.
+     * Gets the linked list values as a one-dimensional array.
      *
      * @return array
      */
@@ -108,7 +108,7 @@ class LinkedList implements Collection
     }
 
     /**
-     * Returns an Iterator for the linked list.
+     * Gets an Iterator for the linked list.
      *
      * @return Iterator
      */
@@ -118,7 +118,7 @@ class LinkedList implements Collection
     }
 
     /**
-     * Returns the number of nodes in the linked list.
+     * Gets the number of nodes in the linked list.
      *
      * @return int
      */
@@ -128,7 +128,7 @@ class LinkedList implements Collection
     }
 
     /**
-     * Returns the first node (head).
+     * Gets the first node.
      *
      * @return LinkedListNode|null
      */
@@ -138,7 +138,7 @@ class LinkedList implements Collection
     }
 
     /**
-     * Returns the last node (tail).
+     * Gets the last node.
      *
      * @return LinkedListNode|null
      */
@@ -148,11 +148,11 @@ class LinkedList implements Collection
     }
 
     /**
-     * Finds the first node that contains the value.
+     * Finds the node that contains the first occurrence of the value.
      *
-     * @param mixed $value The value to search in the linked list.
+     * @param mixed $value The value to search.
      *
-     * @return LinkedListNode|null The first node that contains the value, if found; otherwise null.
+     * @return LinkedListNode|null The node that contains the value or NULL if the value was not found.
      */
     public function find(mixed $value): ?LinkedListNode
     {
@@ -171,11 +171,11 @@ class LinkedList implements Collection
     }
 
     /**
-     * Finds the last node that contains the value.
+     * Finds the node that contains the last occurrence of the value.
      *
-     * @param mixed $value The value to search in the linked list.
+     * @param mixed $value The value to search.
      *
-     * @return LinkedListNode|null The last node that contains the value, if found; otherwise null.
+     * @return LinkedListNode|null The node that contains the value or NULL if the value was not found.
      */
     public function findLast(mixed $value): ?LinkedListNode
     {
@@ -194,12 +194,12 @@ class LinkedList implements Collection
     }
 
     /**
-     * Adds a new value after an existing node.
+     * Adds a value after a node.
      *
-     * @param LinkedListNode $node The node after which insert the new value.
+     * @param LinkedListNode $node The reference node after which the value should be inserted.
      * @param mixed $value The value to add.
      *
-     * @return LinkedListNode The new node containing the value.
+     * @return LinkedListNode A new node containing the added value.
      * @throws InvalidArgumentException If the node does not belong to this linked list.
      */
     public function addAfter(LinkedListNode $node, mixed $value): LinkedListNode
@@ -232,12 +232,12 @@ class LinkedList implements Collection
     }
 
     /**
-     * Adds a new value before an existing node.
+     * Adds a value before a node.
      *
-     * @param LinkedListNode $node The node before which insert the new value.
+     * @param LinkedListNode $node The reference node before which the value should be inserted.
      * @param mixed $value The value to add.
      *
-     * @return LinkedListNode The new node containing the value.
+     * @return LinkedListNode A new node containing the added value.
      * @throws InvalidArgumentException If the node does not belong to this linked list.
      */
     public function addBefore(LinkedListNode $node, mixed $value): LinkedListNode
@@ -270,11 +270,11 @@ class LinkedList implements Collection
     }
 
     /**
-     * Adds a new value at the start of the linked list.
+     * Adds a value at the beginning of the linked list.
      *
-     * @param mixed $value The value to add at the start of the linked list.
+     * @param mixed $value The value to add.
      *
-     * @return LinkedListNode The new linked list containing the value.
+     * @return LinkedListNode A new node containing the added value.
      */
     public function addFirst(mixed $value): LinkedListNode
     {
@@ -295,11 +295,11 @@ class LinkedList implements Collection
     }
 
     /**
-     * Adds a new value at the end of the linked list.
+     * Adds a value at the end of the linked list.
      *
-     * @param mixed $value The value to add at the end of the linked list.
+     * @param mixed $value The value to add.
      *
-     * @return LinkedListNode The new linked list containing the value.
+     * @return LinkedListNode A new node containing the added value.
      */
     public function addLast(mixed $value): LinkedListNode
     {
@@ -334,7 +334,7 @@ class LinkedList implements Collection
     }
 
     /**
-     * Removes the node from the linked list.
+     * Removes a node from the linked list.
      *
      * @param LinkedListNode $node The node to remove.
      *
@@ -366,7 +366,7 @@ class LinkedList implements Collection
     }
 
     /**
-     * Removes the first node (head) of the linked list.
+     * Removes the first node from the linked list.
      */
     public function removeFirst(): void
     {
@@ -377,7 +377,7 @@ class LinkedList implements Collection
     }
 
     /**
-     * Removes the last node (tail) of the linked list.
+     * Removes the last node from the linked list.
      */
     public function removeLast(): void
     {

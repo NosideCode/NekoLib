@@ -22,7 +22,7 @@ final class LinkedListNode
     }
 
     /**
-     * Returns the linked list that the node belongs to.
+     * Gets the linked list that the node belongs to.
      *
      * @return LinkedList
      */
@@ -32,7 +32,7 @@ final class LinkedListNode
     }
 
     /**
-     * Returns the next node.
+     * Gets the next node.
      *
      * @return LinkedListNode|null
      */
@@ -52,7 +52,7 @@ final class LinkedListNode
     }
 
     /**
-     * Returns the previous node.
+     * Gets the previous node.
      *
      * @return LinkedListNode|null
      */
@@ -72,7 +72,7 @@ final class LinkedListNode
     }
 
     /**
-     * Returns the node value.
+     * Gets the value.
      *
      * @return mixed
      */
@@ -82,7 +82,7 @@ final class LinkedListNode
     }
 
     /**
-     * Sets the node value.
+     * Sets the value.
      *
      * @param mixed $value
      */

@@ -4,7 +4,7 @@ namespace NekoLib\Collections;
 use Iterator;
 
 /**
- * Iterates the nodes of a linked list.
+ * Iterates over the nodes of a linked list.
  */
 final class LinkedListIterator implements Iterator
 {
@@ -21,7 +21,7 @@ final class LinkedListIterator implements Iterator
     }
 
     /**
-     * Returns the current node value.
+     * Gets the value of the current node.
      *
      * @return mixed
      */
@@ -39,7 +39,7 @@ final class LinkedListIterator implements Iterator
     }
 
     /**
-     * Returns the LinkedListNode as key.
+     * Gets the current node as the key.
      *
      * @return LinkedListNode
      */

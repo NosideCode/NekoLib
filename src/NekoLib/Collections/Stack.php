@@ -6,7 +6,6 @@ use Iterator;
 use OutOfBoundsException;
 use function array_pop;
 use function array_reverse;
-use function count;
 
 /**
  * Represents a last-in-first-out (LIFO) collection.
@@ -25,13 +24,10 @@ class Stack implements Collection
     {
         if ($collection !== null)
         {
-            if ($collection instanceof Collection)
+            foreach ($collection as $value)
             {
-                $collection = $collection->toArray();
+                $this->push($value);
             }
-
-            $this->items = $collection;
-            $this->length = count($collection);
         }
     }
 

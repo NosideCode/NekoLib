@@ -28,13 +28,10 @@ class ArrayList implements Listable
     {
         if ($collection !== null)
         {
-            if ($collection instanceof Collection)
+            foreach ($collection as $value)
             {
-                $collection = $collection->toArray();
+                $this->add($value);
             }
-
-            $this->items = $collection;
-            $this->length = count($collection);
         }
     }
 

@@ -5,7 +5,6 @@ use ArrayIterator;
 use Iterator;
 use OutOfBoundsException;
 use function array_shift;
-use function count;
 
 /**
  * Represents a first-in-first-out (FIFO) collection.
@@ -24,13 +23,10 @@ class Queue implements Collection
     {
         if ($collection !== null)
         {
-            if ($collection instanceof Collection)
+            foreach ($collection as $value)
             {
-                $collection = $collection->toArray();
+                $this->enqueue($value);
             }
-
-            $this->items = $collection;
-            $this->length = count($collection);
         }
     }
 

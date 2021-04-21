@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 namespace NekoLib\Collections;
 
+use ArrayAccess;
 use ArrayIterator;
 use Iterator;
 use OutOfBoundsException;
@@ -14,7 +15,7 @@ use const SORT_REGULAR;
 /**
  * Represents a list of values that can be accessed by index.
  */
-class ArrayList implements Listable
+class ArrayList implements Listable, ArrayAccess
 {
     protected array $items = [];
     protected int $length = 0;
@@ -480,5 +481,55 @@ class ArrayList implements Listable
         }
 
         return $list;
+    }
+
+    /**
+     * Determines whether the offset is within the list bounds.
+     *
+     * @param mixed $offset The zero-based offset.
+     *
+     * @return bool
+     */
+    public function offsetExists(mixed $offset): bool
+    {
+        return $offset >= 0 && $offset < $this->length;
+    }
+
+    /**
+     * Gets the value at the specified offset.
+     *
+     * @param mixed $offset The zero-based offset of the value to get.
+     *
+     * @return mixed
+     * @throws OutOfBoundsException If the offset is less than zero or is equal to or greater than the size of the list.
+     */
+    public function offsetGet(mixed $offset): mixed
+    {
+        return $this->get($offset);
+    }
+
+    /**
+     * Sets the value at the specified offset.
+     *
+     * @param mixed $offset The zero-based offset of the value to set.
+     * @param mixed $value The value to set.
+     *
+     * @throws OutOfBoundsException If the offset is less than zero or is equal to or greater than the size of the list.
+     */
+    public function offsetSet(mixed $offset, mixed $value): void
+    {
+        $this->set($offset, $value);
+    }
+
+    /**
+     * Removes the value at the specified offset.
+     *
+     * @param mixed $offset The zero based offset of the value to remove.
+     *
+     * @throws OutOfBoundsException If the offset is less than zero or is equal to or greater than the size of the list.
+     */
+    public function offsetUnset(mixed $offset): void
+    {
+        $this->removeAt($offset);
     }
 }

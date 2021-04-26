@@ -60,4 +60,13 @@ final class DictionaryTest extends TestCase
         $this->expectException(KeyNotFoundException::class);
         $map->get('unknown key');
     }
+
+    /**
+     * @depends testSet
+     */
+    public function testContainsKey_(Dictionary $map): void
+    {
+        $this->assertTrue($map->containsKey('wakipai'));
+        $this->assertFalse($map->containsKey('unknown key'));
+    }
 }

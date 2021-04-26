@@ -12,7 +12,7 @@ use function array_shift;
 class Queue implements Collection
 {
     private array $items = [];
-    private int $length = 0;
+    private int $size = 0;
 
     /**
      * Queue constructor.
@@ -36,7 +36,7 @@ class Queue implements Collection
     public function clear(): void
     {
         $this->items = [];
-        $this->length = 0;
+        $this->size = 0;
     }
 
     /**
@@ -46,7 +46,7 @@ class Queue implements Collection
      */
     public function isEmpty(): bool
     {
-        return $this->length === 0;
+        return $this->size === 0;
     }
 
     /**
@@ -56,7 +56,7 @@ class Queue implements Collection
      */
     public function count(): int
     {
-        return $this->length;
+        return $this->size;
     }
 
     /**
@@ -68,7 +68,7 @@ class Queue implements Collection
      */
     public function contains(mixed $value): bool
     {
-        for ($i = 0; $i < $this->length; ++$i)
+        for ($i = 0; $i < $this->size; ++$i)
         {
             if ($value === $this->items[$i])
             {
@@ -87,7 +87,7 @@ class Queue implements Collection
      */
     public function copyTo(array &$destination, int $index = 0): void
     {
-        for ($i = 0; $i < $this->length; ++$i)
+        for ($i = 0; $i < $this->size; ++$i)
         {
             $destination[$index++] = $this->items[$i];
         }
@@ -121,7 +121,7 @@ class Queue implements Collection
     public function enqueue(mixed $value): void
     {
         $this->items[] = $value;
-        ++$this->length;
+        ++$this->size;
     }
 
     /**
@@ -137,7 +137,7 @@ class Queue implements Collection
             throw new OutOfBoundsException('Queue is empty');
         }
 
-        --$this->length;
+        --$this->size;
         return array_shift($this->items);
     }
 
@@ -156,7 +156,7 @@ class Queue implements Collection
             return false;
         }
 
-        --$this->length;
+        --$this->size;
         $result = array_shift($this->items);
         return true;
     }

@@ -13,7 +13,7 @@ use function array_reverse;
 class Stack implements Collection
 {
     private array $items = [];
-    private int $length = 0;
+    private int $size = 0;
 
     /**
      * Stack constructor.
@@ -37,7 +37,7 @@ class Stack implements Collection
     public function clear(): void
     {
         $this->items = [];
-        $this->length = 0;
+        $this->size = 0;
     }
 
     /**
@@ -47,7 +47,7 @@ class Stack implements Collection
      */
     public function isEmpty(): bool
     {
-        return $this->length === 0;
+        return $this->size === 0;
     }
 
     /**
@@ -57,7 +57,7 @@ class Stack implements Collection
      */
     public function count(): int
     {
-        return $this->length;
+        return $this->size;
     }
 
     /**
@@ -69,7 +69,7 @@ class Stack implements Collection
      */
     public function contains(mixed $value): bool
     {
-        for ($i = 0; $i < $this->length; ++$i)
+        for ($i = 0; $i < $this->size; ++$i)
         {
             if ($value === $this->items[$i])
             {
@@ -88,7 +88,7 @@ class Stack implements Collection
      */
     public function copyTo(array &$destination, int $index = 0): void
     {
-        for ($i = $this->length - 1; $i >= 0; --$i)
+        for ($i = $this->size - 1; $i >= 0; --$i)
         {
             $destination[$index++] = $this->items[$i];
         }
@@ -122,7 +122,7 @@ class Stack implements Collection
     public function push(mixed $value): void
     {
         $this->items[] = $value;
-        ++$this->length;
+        ++$this->size;
     }
 
     /**
@@ -138,7 +138,7 @@ class Stack implements Collection
             throw new OutOfBoundsException('Stack is empty');
         }
 
-        --$this->length;
+        --$this->size;
         return array_pop($this->items);
     }
 
@@ -157,7 +157,7 @@ class Stack implements Collection
             return false;
         }
 
-        --$this->length;
+        --$this->size;
         $result = array_pop($this->items);
         return true;
     }
@@ -175,7 +175,7 @@ class Stack implements Collection
             throw new OutOfBoundsException('Stack is empty');
         }
 
-        return $this->items[$this->length - 1];
+        return $this->items[$this->size - 1];
     }
 
     /**
@@ -193,7 +193,7 @@ class Stack implements Collection
             return false;
         }
 
-        $result = $this->items[$this->length - 1];
+        $result = $this->items[$this->size - 1];
         return true;
     }
 }

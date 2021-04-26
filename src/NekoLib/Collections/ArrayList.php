@@ -18,7 +18,7 @@ use const SORT_REGULAR;
 class ArrayList implements ArrayAccess, Listable
 {
     protected array $items = [];
-    protected int $length = 0;
+    protected int $size = 0;
 
     /**
      * ArrayList constructor.
@@ -42,7 +42,7 @@ class ArrayList implements ArrayAccess, Listable
     public function clear(): void
     {
         $this->items = [];
-        $this->length = 0;
+        $this->size = 0;
     }
 
     /**
@@ -52,7 +52,7 @@ class ArrayList implements ArrayAccess, Listable
      */
     public function isEmpty(): bool
     {
-        return $this->length === 0;
+        return $this->size === 0;
     }
 
     /**
@@ -62,7 +62,7 @@ class ArrayList implements ArrayAccess, Listable
      */
     public function count(): int
     {
-        return $this->length;
+        return $this->size;
     }
 
     /**
@@ -74,7 +74,7 @@ class ArrayList implements ArrayAccess, Listable
      */
     public function contains(mixed $value): bool
     {
-        return $this->length > 0 && $this->indexOf($value) !== -1;
+        return $this->size > 0 && $this->indexOf($value) !== -1;
     }
 
     /**
@@ -85,7 +85,7 @@ class ArrayList implements ArrayAccess, Listable
      */
     public function copyTo(array &$destination, int $index = 0): void
     {
-        for ($i = 0; $i < $this->length; ++$i)
+        for ($i = 0; $i < $this->size; ++$i)
         {
             $destination[$index++] = $this->items[$i];
         }
@@ -101,7 +101,7 @@ class ArrayList implements ArrayAccess, Listable
         // We cannot use array_slice() as the order of the keys may have been lost,
         // so we need to copy each value manually.
         $result = [];
-        for ($i = 0; $i < $this->length; ++$i)
+        for ($i = 0; $i < $this->size; ++$i)
         {
             $result[$i] = $this->items[$i];
         }
@@ -128,7 +128,7 @@ class ArrayList implements ArrayAccess, Listable
      */
     public function indexOf(mixed $value): int
     {
-        for ($i = 0; $i < $this->length; ++$i)
+        for ($i = 0; $i < $this->size; ++$i)
         {
             if ($value === $this->items[$i])
             {
@@ -148,7 +148,7 @@ class ArrayList implements ArrayAccess, Listable
      */
     public function lastIndexOf(mixed $value): int
     {
-        for ($i = $this->length - 1; $i >= 0; --$i)
+        for ($i = $this->size - 1; $i >= 0; --$i)
         {
             if ($value === $this->items[$i])
             {
@@ -166,7 +166,7 @@ class ArrayList implements ArrayAccess, Listable
      */
     public function add(mixed $value): void
     {
-        $this->items[$this->length++] = $value;
+        $this->items[$this->size++] = $value;
     }
 
     /**
@@ -176,7 +176,7 @@ class ArrayList implements ArrayAccess, Listable
      */
     public function addRange(Collection|array $collection): void
     {
-        $this->insertRange($this->length, $collection);
+        $this->insertRange($this->size, $collection);
     }
 
     /**
@@ -189,7 +189,7 @@ class ArrayList implements ArrayAccess, Listable
      */
     public function get(int $index): mixed
     {
-        if ($index < 0 || $index >= $this->length)
+        if ($index < 0 || $index >= $this->size)
         {
             throw new OutOfBoundsException('Index was out of range. Must be non-negative and less than the size of the list');
         }
@@ -207,7 +207,7 @@ class ArrayList implements ArrayAccess, Listable
      */
     public function set(int $index, mixed $value): void
     {
-        if ($index < 0 || $index >= $this->length)
+        if ($index < 0 || $index >= $this->size)
         {
             throw new OutOfBoundsException('Index must be within the bounds of the list');
         }
@@ -225,18 +225,18 @@ class ArrayList implements ArrayAccess, Listable
      */
     public function insert(int $index, mixed $value): void
     {
-        if ($index < 0 || $index > $this->length)
+        if ($index < 0 || $index > $this->size)
         {
             throw new OutOfBoundsException('Index must be within the bounds of the list');
         }
 
-        for ($i = $this->length; $i > $index; --$i)
+        for ($i = $this->size; $i > $index; --$i)
         {
             $this->items[$i] = $this->items[$i - 1];
         }
 
         $this->items[$index] = $value;
-        ++$this->length;
+        ++$this->size;
     }
 
     /**
@@ -249,7 +249,7 @@ class ArrayList implements ArrayAccess, Listable
      */
     public function insertRange(int $index, Collection|array $collection): void
     {
-        if ($index < 0 || $index > $this->length)
+        if ($index < 0 || $index > $this->size)
         {
             throw new OutOfBoundsException('Index must be within the bounds of the list');
         }
@@ -260,7 +260,7 @@ class ArrayList implements ArrayAccess, Listable
         }
 
         $length = count($collection);
-        $newLength = $this->length + $length;
+        $newLength = $this->size + $length;
 
         // Move values to make room
         for ($i = $newLength - 1; $i >= $index + $length; --$i)
@@ -274,7 +274,7 @@ class ArrayList implements ArrayAccess, Listable
             $this->items[$index++] = $collection[$i];
         }
 
-        $this->length = $newLength;
+        $this->size = $newLength;
     }
 
     /**
@@ -300,18 +300,18 @@ class ArrayList implements ArrayAccess, Listable
      */
     public function removeAt(int $index): void
     {
-        if ($index < 0 || $index >= $this->length)
+        if ($index < 0 || $index >= $this->size)
         {
             throw new OutOfBoundsException('Index was out of bounds. Must be non-negative and less than the size of the list');
         }
 
-        --$this->length;
-        for (; $index < $this->length; ++$index)
+        --$this->size;
+        for (; $index < $this->size; ++$index)
         {
             $this->items[$index] = $this->items[$index + 1];
         }
 
-        $this->items[$this->length] = null;
+        $this->items[$this->size] = null;
     }
 
     /**
@@ -324,7 +324,7 @@ class ArrayList implements ArrayAccess, Listable
      */
     public function removeRange(int $index, int $count): void
     {
-        if ($index < 0 || $index >= $this->length)
+        if ($index < 0 || $index >= $this->size)
         {
             throw new OutOfBoundsException('Index was out of bounds. Must be non-negative and less than the size of the list');
         }
@@ -332,14 +332,14 @@ class ArrayList implements ArrayAccess, Listable
         if ($count > 0)
         {
             // Make sure the number of values to remove is within the list boundaries.
-            $count = min($count, $this->length);
-            while ($index < $this->length)
+            $count = min($count, $this->size);
+            while ($index < $this->size)
             {
                 $this->items[$index] = $this->items[$index + $count] ?? null;
                 ++$index;
             }
 
-            $this->length -= $count;
+            $this->size -= $count;
         }
     }
 
@@ -349,7 +349,7 @@ class ArrayList implements ArrayAccess, Listable
     public function reverse(): void
     {
         $start = 0;
-        $end = $this->length - 1;
+        $end = $this->size - 1;
 
         while ($start < $end)
         {
@@ -376,12 +376,12 @@ class ArrayList implements ArrayAccess, Listable
      */
     public function slice(int $index, int $count): ArrayList
     {
-        if ($index < 0 || $index >= $this->length)
+        if ($index < 0 || $index >= $this->size)
         {
             throw new OutOfBoundsException('Index was out of bounds. Must be non-negative and less than the size of the list');
         }
 
-        $count = min($count, $this->length);
+        $count = min($count, $this->size);
         $list = new ArrayList();
 
         for ($i = 0; $i < $count; ++$i)
@@ -430,7 +430,7 @@ class ArrayList implements ArrayAccess, Listable
      */
     public function all(callable $match): bool
     {
-        for ($i = 0; $i < $this->length; ++$i)
+        for ($i = 0; $i < $this->size; ++$i)
         {
             if (!call_user_func($match, $this->items[$i]))
             {
@@ -450,7 +450,7 @@ class ArrayList implements ArrayAccess, Listable
      */
     public function any(callable $match): bool
     {
-        for ($i = 0; $i < $this->length; ++$i)
+        for ($i = 0; $i < $this->size; ++$i)
         {
             if (call_user_func($match, $this->items[$i]))
             {
@@ -471,7 +471,7 @@ class ArrayList implements ArrayAccess, Listable
     public function filter(callable $match): ArrayList
     {
         $list = new ArrayList();
-        for ($i = 0; $i < $this->length; ++$i)
+        for ($i = 0; $i < $this->size; ++$i)
         {
             $value = $this->items[$i];
             if (call_user_func($match, $value))
@@ -492,7 +492,7 @@ class ArrayList implements ArrayAccess, Listable
      */
     public function offsetExists(mixed $offset): bool
     {
-        return $offset >= 0 && $offset < $this->length;
+        return $offset >= 0 && $offset < $this->size;
     }
 
     /**

@@ -12,6 +12,7 @@ use function reset;
  */
 final class KeyValuePairIterator implements Iterator
 {
+    /** @var KeyValuePair[] */
     private array $entries;
 
     /**
@@ -31,7 +32,7 @@ final class KeyValuePairIterator implements Iterator
      */
     public function current(): mixed
     {
-        return current($this->entries)->value;
+        return current($this->entries)->getValue();
     }
 
     /**
@@ -49,7 +50,7 @@ final class KeyValuePairIterator implements Iterator
      */
     public function key(): mixed
     {
-        return current($this->entries)->key;
+        return current($this->entries)->getKey();
     }
 
     /**

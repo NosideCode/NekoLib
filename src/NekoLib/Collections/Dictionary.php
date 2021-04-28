@@ -13,9 +13,20 @@ use function spl_object_hash;
  */
 class Dictionary implements ArrayAccess, KeyValuePairCollection
 {
-    /** @var DictionaryEntry[] */
+    /** @var KeyValuePair[] */
     private array $entries = [];
     private int $size = 0;
+
+    public function __construct(?KeyValuePairCollection $collection = null)
+    {
+        if ($collection !== null)
+        {
+            foreach ($collection as $key => $value)
+            {
+                $this->set($key, $value);
+            }
+        }
+    }
 
     /**
      * Removes all values from the collection.
@@ -45,11 +56,14 @@ class Dictionary implements ArrayAccess, KeyValuePairCollection
      */
     public function contains(mixed $value): bool
     {
-        foreach ($this->entries as $entry)
+        if ($value instanceof KeyValuePair)
         {
-            if ($entry->value === $value)
+            foreach ($this->entries as $entry)
             {
-                return true;
+                if ($entry === $value)
+                {
+                    return true;
+                }
             }
         }
 
@@ -71,7 +85,27 @@ class Dictionary implements ArrayAccess, KeyValuePairCollection
     }
 
     /**
-     * Copies the keys and values of the dictionary to an array.
+     * Determines whether the dictionary contains the given value.
+     *
+     * @param mixed $value The value to search.
+     *
+     * @return bool
+     */
+    public function containsValue(mixed $value): bool
+    {
+        foreach ($this->entries as $entry)
+        {
+            if ($entry->getValue() === $value)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Copies the key/value pairs of the dictionary to an array.
      *
      * @param array $destination The destination array.
      * @param int $index The zero-based index in $array at which copy begins.
@@ -80,26 +114,21 @@ class Dictionary implements ArrayAccess, KeyValuePairCollection
     {
         foreach ($this->entries as $entry)
         {
-            $destination[$index++] = [$entry->key, $entry->value];
+            $destination[$index++] = $entry;
         }
     }
 
     /**
-     * Gets the dictionary keys and values as a two-dimensional array of the form [key, value].
-     * ```
-     * $entries = $dictionary->toArray();
-     * $first   = $entries[0];
-     * $key     = $first[0];
-     * $value   = $first[1];
-     * ```
-     * @return array
+     * Gets the dictionary key/value pairs as a one-dimensional array.
+     *
+     * @return KeyValuePair[]
      */
     public function toArray(): array
     {
         $keyValuePairs = [];
         foreach ($this->entries as $entry)
         {
-            $keyValuePairs[] = [$entry->key, $entry->value];
+            $keyValuePairs[] = $entry;
         }
 
         return $keyValuePairs;
@@ -141,9 +170,7 @@ class Dictionary implements ArrayAccess, KeyValuePairCollection
             throw new InvalidArgumentException('The key already exists');
         }
 
-        $entry = new DictionaryEntry();
-        $entry->key = $rawKey;
-        $entry->value = $value;
+        $entry = new KeyValuePair($rawKey, $value);
         $this->entries[$key] = $entry;
         ++$this->size;
     }
@@ -165,7 +192,7 @@ class Dictionary implements ArrayAccess, KeyValuePairCollection
             throw new KeyNotFoundException($rawKey);
         }
 
-        return $this->entries[$key]->value;
+        return $this->entries[$key]->getValue();
     }
 
     /**
@@ -183,13 +210,12 @@ class Dictionary implements ArrayAccess, KeyValuePairCollection
 
         if ($entry === null)
         {
-            $entry = new DictionaryEntry();
-            $entry->key = $rawKey;
+            $entry = new KeyValuePair($key);
             $this->entries[$key] = $entry;
             ++$this->size;
         }
 
-        $entry->value = $value;
+        $entry->setValue($value);
     }
 
     /**
@@ -215,7 +241,7 @@ class Dictionary implements ArrayAccess, KeyValuePairCollection
         $keys = [];
         foreach ($this->entries as $entry)
         {
-            $keys[] = $entry->key;
+            $keys[] = $entry->getKey();
         }
 
         return $keys;
@@ -231,7 +257,7 @@ class Dictionary implements ArrayAccess, KeyValuePairCollection
         $values = [];
         foreach ($this->entries as $entry)
         {
-            $values[] = $entry->value;
+            $values[] = $entry->getValue();
         }
 
         return $values;
@@ -247,8 +273,7 @@ class Dictionary implements ArrayAccess, KeyValuePairCollection
      */
     public function offsetExists(mixed $offset): bool
     {
-        $this->filterObjectKey($offset);
-        return array_key_exists($offset, $this->entries);
+        return $this->containsKey($offset);
     }
 
     /**
@@ -291,18 +316,18 @@ class Dictionary implements ArrayAccess, KeyValuePairCollection
      * Filters the given key hashing the object if needed.
      *
      * @param mixed $key The key to filter.
-     * @param mixed|null $rawKey The raw key.
+     * @param mixed|null $raw_key The raw key.
      *
      * @throws InvalidArgumentException If the key is null.
      */
-    private function filterObjectKey(mixed &$key, mixed &$rawKey = null): void
+    private function filterObjectKey(mixed &$key, mixed &$raw_key = null): void
     {
         if ($key === null)
         {
             throw new InvalidArgumentException('The key cannot be null');
         }
 
-        $rawKey = $key;
+        $raw_key = $key;
         if (is_object($key))
         {
             $key = spl_object_hash($key);

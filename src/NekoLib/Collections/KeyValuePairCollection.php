@@ -49,7 +49,7 @@ interface KeyValuePairCollection extends Collection
     public function remove(mixed $key): void;
 
     /**
-     * Determines whether the dictionary contains the given key.
+     * Determines whether the key/value pair collection contains the given key.
      *
      * @param mixed $key The key to search.
      *
@@ -59,14 +59,23 @@ interface KeyValuePairCollection extends Collection
     public function containsKey(mixed $key): bool;
 
     /**
-     * Gets the dictionary keys as a one-dimensional array.
+     * Determines whether the key/value pair collection contains the given value.
+     *
+     * @param mixed $value The value to search.
+     *
+     * @return bool
+     */
+    public function containsValue(mixed $value): bool;
+
+    /**
+     * Gets the keys as a one-dimensional array.
      *
      * @return array
      */
     public function getKeys(): array;
 
     /**
-     * Gets the dictionary values as a one-dimensional array.
+     * Gets the values as a one-dimensional array.
      *
      * @return array
      */

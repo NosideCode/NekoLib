@@ -3,6 +3,7 @@ namespace NekoLib;
 
 use InvalidArgumentException;
 use OverflowException;
+use UnderflowException;
 use function abs;
 use function filter_var;
 use function floor;
@@ -188,19 +189,19 @@ final class Math
     }
 
     /**
-     * Subtracts two integers. If the result produces an overflow, throw an OverflowException.
+     * Subtracts two integers. If the result produces an overflow, throw an UnderflowException.
      *
      * @param int $a
      * @param int $b
      *
      * @return int The difference of $a and $b.
-     * @throws OverflowException
+     * @throws UnderflowException
      */
     public static function checkedSubtract(int $a, int $b): int
     {
         if ((PHP_INT_MIN + $b) > $a)
         {
-            throw new OverflowException('Subtract operation overflows');
+            throw new UnderflowException('Subtract underflow');
         }
 
         return $a - $b;

@@ -5,7 +5,7 @@ use InvalidArgumentException;
 use NekoLib\Math;
 use OverflowException;
 use PHPUnit\Framework\TestCase;
-
+use UnderflowException;
 use const PHP_INT_MAX;
 use const PHP_INT_MIN;
 
@@ -123,9 +123,9 @@ final class MathTest extends TestCase
         Math::checkedAdd($a, $b);
     }
 
-    public function testCheckedSubtract_DetectsOverflow(): void
+    public function testCheckedSubtract_DetectsUnderflow(): void
     {
-        $this->expectException(OverflowException::class);
+        $this->expectException(UnderflowException::class);
         $a = PHP_INT_MIN;
         $b = 1;
         Math::checkedSubtract($a, $b);

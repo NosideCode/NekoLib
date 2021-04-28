@@ -61,7 +61,7 @@ final class NullStream extends Stream
     {
     }
 
-    public function copyTo(Stream $stream): void
+    public function copyTo(Stream $stream, int $buffer_size = 81920): void
     {
     }
 }

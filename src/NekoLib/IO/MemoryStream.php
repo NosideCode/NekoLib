@@ -189,7 +189,7 @@ class MemoryStream extends Stream
     }
 
     /**
-     * It does nothing since any data is directly written to memory.
+     * Does nothing since any data is directly written to memory.
      */
     public function flush(): void
     {
@@ -207,12 +207,13 @@ class MemoryStream extends Stream
      * Writes the entire content of the memory stream to another stream.
      *
      * @param Stream $stream The stream to write the contents of this stream to.
+     * @param int $buffer_size The size of the buffer. This value must be greater than zero.
      *
      * @throws IOException If this stream is not readable or the destination stream is not writable.
      */
-    public function writeTo(Stream $stream): void
+    public function writeTo(Stream $stream, int $buffer_size = 81920): void
     {
         $this->setPosition(0);
-        $this->copyTo($stream);
+        $this->copyTo($stream, $buffer_size);
     }
 }

@@ -6,8 +6,6 @@ namespace NekoLib\IO;
  */
 abstract class Stream
 {
-    private const DEFAULT_COPY_BUFFER_SIZE = 81920;
-
     /**
      * Determines whether the stream can be read.
      *
@@ -112,10 +110,11 @@ abstract class Stream
      * and does not reset the position of the destination stream after the copy operation is complete.
      *
      * @param Stream $stream The stream to copy the contents of this stream to.
+     * @param int $buffer_size The size of the buffer. This value must be greater than zero.
      *
      * @throws IOException If this stream is not readable or the destination stream is not writable.
      */
-    public function copyTo(Stream $stream): void
+    public function copyTo(Stream $stream, int $buffer_size = 81920): void
     {
         if (!$this->canRead())
         {
@@ -129,7 +128,7 @@ abstract class Stream
 
         while (!$this->endOfStream())
         {
-            $length = $this->read(self::DEFAULT_COPY_BUFFER_SIZE, $data);
+            $length = $this->read($buffer_size, $data);
             $stream->write($data, $length);
         }
 

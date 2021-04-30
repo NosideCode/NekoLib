@@ -228,7 +228,11 @@ class Dictionary implements ArrayAccess, KeyValuePairCollection
     public function remove(mixed $key): void
     {
         $this->filterObjectKey($key);
-        unset($this->entries[$key]);
+        if (array_key_exists($key, $this->entries))
+        {
+            unset($this->entries[$key]);
+            --$this->size;
+        }
     }
 
     /**

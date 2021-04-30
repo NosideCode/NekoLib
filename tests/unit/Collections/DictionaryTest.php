@@ -12,7 +12,7 @@ final class DictionaryTest extends TestCase
     {
         $map = new Dictionary();
         $this->assertTrue($map->isEmpty());
-        $this->assertEquals(0, $map->count());
+        $this->assertSame(0, $map->count());
         return $map;
     }
 
@@ -23,8 +23,8 @@ final class DictionaryTest extends TestCase
     {
         $map->add('foo', 'bar');
         $this->assertFalse($map->isEmpty());
-        $this->assertEquals(1, $map->count());
-        $this->assertEquals('bar', $map->get('foo'));
+        $this->assertSame(1, $map->count());
+        $this->assertSame('bar', $map->get('foo'));
         return $map;
     }
 
@@ -44,11 +44,11 @@ final class DictionaryTest extends TestCase
     {
         // Update key
         $map->set('foo', 'baz');
-        $this->assertEquals('baz', $map->get('foo'));
+        $this->assertSame('baz', $map->get('foo'));
 
         $map->set('wakipai', 'Watame');
-        $this->assertEquals('Watame', $map->get('wakipai'));
-        $this->assertEquals(2, $map->count());
+        $this->assertSame('Watame', $map->get('wakipai'));
+        $this->assertSame(2, $map->count());
         return $map;
     }
 
@@ -64,9 +64,38 @@ final class DictionaryTest extends TestCase
     /**
      * @depends testSet
      */
-    public function testContainsKey_(Dictionary $map): void
+    public function testContainsKey_(Dictionary $map): Dictionary
     {
         $this->assertTrue($map->containsKey('wakipai'));
         $this->assertFalse($map->containsKey('unknown key'));
+        return $map;
+    }
+
+    /**
+     * @depends testContainsKey_
+     */
+    public function testContainsValue_(Dictionary $map): Dictionary
+    {
+        $this->assertTrue($map->containsValue('Watame'));
+        $this->assertFalse($map->containsValue('Yagoo'));
+        return $map;
+    }
+
+    /**
+     * @depends testContainsValue_
+     */
+    public function testRemove(Dictionary $map): void
+    {
+        $this->assertSame(2, $map->count());
+
+        // Key must exists first
+        $map->get('foo');
+
+        // Remove 1 key
+        $map->remove('foo');
+        $this->assertSame(1, $map->count());
+
+        $this->expectException(KeyNotFoundException::class);
+        $map->get('foo');
     }
 }

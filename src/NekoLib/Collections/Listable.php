@@ -58,8 +58,10 @@ interface Listable extends Collection
      * Removes the first occurrence of the value in the list.
      *
      * @param mixed $value The value to remove.
+     *
+     * @return bool A boolean value that indicates whether the value was removed or not.
      */
-    public function remove(mixed $value): void;
+    public function remove(mixed $value): bool;
 
     /**
      * Removes the value at the specified index.

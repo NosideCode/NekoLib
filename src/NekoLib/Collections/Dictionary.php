@@ -223,16 +223,20 @@ class Dictionary implements ArrayAccess, KeyValuePairCollection
      *
      * @param mixed $key The key of the value to remove.
      *
+     * @return bool A boolean value that indicates whether the value was removed or not.
      * @throws InvalidArgumentException If the key is null.
      */
-    public function remove(mixed $key): void
+    public function remove(mixed $key): bool
     {
         $this->filterObjectKey($key);
         if (array_key_exists($key, $this->entries))
         {
             unset($this->entries[$key]);
             --$this->size;
+            return true;
         }
+
+        return false;
     }
 
     /**

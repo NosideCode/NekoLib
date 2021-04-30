@@ -323,14 +323,19 @@ class LinkedList implements Collection
      * Remove the first occurrence of the value from the linked list.
      *
      * @param mixed $value The value to remove.
+     *
+     * @return bool A boolean value that indicates whether the value was removed or not.
      */
-    public function remove(mixed $value): void
+    public function remove(mixed $value): bool
     {
         $node = $this->find($value);
         if ($node !== null)
         {
             $this->removeNode($node);
+            return true;
         }
+
+        return false;
     }
 
     /**

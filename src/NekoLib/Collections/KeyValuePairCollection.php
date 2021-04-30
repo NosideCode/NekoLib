@@ -44,9 +44,10 @@ interface KeyValuePairCollection extends Collection
      *
      * @param mixed $key The key of the value to remove.
      *
+     * @return bool A boolean value that indicates whether the value was removed or not.
      * @throws InvalidArgumentException If the key is null.
      */
-    public function remove(mixed $key): void;
+    public function remove(mixed $key): bool;
 
     /**
      * Determines whether the key/value pair collection contains the given key.

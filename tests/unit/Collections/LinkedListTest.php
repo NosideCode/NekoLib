@@ -84,7 +84,7 @@ final class LinkedListTest extends TestCase
         $node = $list->find('C');
         $prev = $node->getPrevious();
         $next = $node->getNext();
-        $list->remove('C');
+        $this->assertTrue($list->remove('C'));
 
         $this->assertSame(3, $list->count());
         $this->assertSame($next, $prev->getNext());

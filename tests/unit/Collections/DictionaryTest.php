@@ -92,7 +92,7 @@ final class DictionaryTest extends TestCase
         $map->get('foo');
 
         // Remove 1 key
-        $map->remove('foo');
+        $this->assertTrue($map->remove('foo'));
         $this->assertSame(1, $map->count());
 
         $this->expectException(KeyNotFoundException::class);

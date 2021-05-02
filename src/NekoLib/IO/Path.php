@@ -202,7 +202,7 @@ final class Path
             }
         }
 
-        $fileNoExt = substr($path, 0, $i);
+        $fileNoExt = substr($path, 0, $len);
         if ($extension === null)
         {
             return $fileNoExt;

@@ -60,11 +60,14 @@ final class PathTest extends TestCase
     {
         $this->assertSame('Moona.hey', Path::changeExtension('Moona.peko', 'hey'));
         $this->assertSame('Botan.poi', Path::changeExtension('Botan.yeet', '.poi'));
+        $this->assertSame('Pekora.kon.peko', Path::changeExtension('Pekora.kon.kon', '.peko'));
     }
 
     public function testNullRemovesExtension(): void
     {
         $this->assertSame('Marine', Path::changeExtension('Marine.nothorny', null));
+        $this->assertSame('A.chan', Path::changeExtension('A.chan.kun', null));
+        $this->assertSame('Wakipai', Path::changeExtension('Wakipai', null));
     }
 
     public function testIsPathRooted_(): void

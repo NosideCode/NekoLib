@@ -1,6 +1,8 @@
 <?php declare(strict_types=1);
 namespace NekoLib\IO;
 
+use NekoLib\UnsupportedOperationException;
+
 /**
  * Provides a generic interface for streams.
  */
@@ -19,6 +21,13 @@ abstract class Stream
      * @return bool
      */
     abstract public function canWrite(): bool;
+
+    /**
+     * Determines whether the stream is seekable.
+     *
+     * @return bool
+     */
+    abstract public function canSeek(): bool;
 
     /**
      * Determines whether the stream has reached the end.
@@ -78,6 +87,7 @@ abstract class Stream
      *
      * @return int The number of bytes read.
      * @throws IOException
+     * @throws UnsupportedOperationException
      */
     abstract public function read(int $length, ?string &$data): int;
 
@@ -90,6 +100,7 @@ abstract class Stream
      *
      * @return int The number of bytes written.
      * @throws IOException
+     * @throws UnsupportedOperationException
      */
     abstract public function write(string $data, int $length = -1): int;
 
@@ -113,19 +124,10 @@ abstract class Stream
      * @param int $buffer_size The size of the buffer. This value must be greater than zero.
      *
      * @throws IOException If this stream is not readable or the destination stream is not writable.
+     * @throws UnsupportedOperationException If the stream is not readable or the destination stream is not writable.
      */
     public function copyTo(Stream $stream, int $buffer_size = 81920): void
     {
-        if (!$this->canRead())
-        {
-            throw new IOException('Stream is not readable');
-        }
-
-        if (!$stream->canWrite())
-        {
-            throw new IOException('Destination stream is not writable');
-        }
-
         while (!$this->endOfStream())
         {
             $length = $this->read($buffer_size, $data);
@@ -133,5 +135,31 @@ abstract class Stream
         }
 
         $stream->flush();
+    }
+
+    /**
+     * Ensures that the stream is readable.
+     *
+     * @throws UnsupportedOperationException
+     */
+    protected function ensureCanRead(): void
+    {
+        if (!$this->canRead())
+        {
+            throw new UnsupportedOperationException('The stream does not support reading');
+        }
+    }
+
+    /**
+     * Ensures that the stream is writable.
+     *
+     * @throws UnsupportedOperationException
+     */
+    protected function ensureCanWrite(): void
+    {
+        if (!$this->canWrite())
+        {
+            throw new UnsupportedOperationException('The stream does not support writing');
+        }
     }
 }

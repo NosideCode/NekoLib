@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 namespace NekoLib\IO;
 
+use NekoLib\UnsupportedOperationException;
 use function fclose;
 use function feof;
 use function fopen;
@@ -50,6 +51,16 @@ class MemoryStream extends Stream
      * @return bool
      */
     public function canWrite(): bool
+    {
+        return true;
+    }
+
+    /**
+     * Determines whether the stream is seekable.
+     *
+     * @return bool
+     */
+    public function canSeek(): bool
     {
         return true;
     }
@@ -210,6 +221,7 @@ class MemoryStream extends Stream
      * @param int $buffer_size The size of the buffer. This value must be greater than zero.
      *
      * @throws IOException If this stream is not readable or the destination stream is not writable.
+     * @throws UnsupportedOperationException If the stream is not readable or the destination is not writable.
      */
     public function writeTo(Stream $stream, int $buffer_size = 81920): void
     {

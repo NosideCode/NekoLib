@@ -16,6 +16,11 @@ final class NullStream extends Stream
         return true;
     }
 
+    public function canSeek(): bool
+    {
+        return true;
+    }
+
     public function endOfStream(): bool
     {
         return true;

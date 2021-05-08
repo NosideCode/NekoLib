@@ -17,8 +17,8 @@ use const SORT_REGULAR;
  */
 class ArrayList implements ArrayAccess, Listable
 {
-    protected array $items = [];
-    protected int $size = 0;
+    private array $items = [];
+    private int $size = 0;
 
     /**
      * ArrayList constructor.

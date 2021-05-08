@@ -58,13 +58,10 @@ class Dictionary implements ArrayAccess, KeyValuePairCollection
     {
         if ($value instanceof KeyValuePair)
         {
-            foreach ($this->entries as $entry)
-            {
-                if ($entry === $value)
-                {
-                    return true;
-                }
-            }
+            $key = $value->getKey();
+            $this->filterObjectKey($key);
+            $entry = $this->entries[$key] ?? null;
+            return $entry !== null && ($entry === $value || $entry->getValue() === $value->getValue());
         }
 
         return false;

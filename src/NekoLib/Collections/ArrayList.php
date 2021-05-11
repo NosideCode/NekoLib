@@ -5,7 +5,6 @@ use ArrayAccess;
 use ArrayIterator;
 use Iterator;
 use OutOfBoundsException;
-use function call_user_func;
 use function count;
 use function min;
 use function sort;
@@ -437,7 +436,7 @@ class ArrayList implements ArrayAccess, Listable
     {
         for ($i = 0; $i < $this->size; ++$i)
         {
-            if (!call_user_func($match, $this->items[$i]))
+            if (!$match($this->items[$i]))
             {
                 return false;
             }
@@ -457,7 +456,7 @@ class ArrayList implements ArrayAccess, Listable
     {
         for ($i = 0; $i < $this->size; ++$i)
         {
-            if (call_user_func($match, $this->items[$i]))
+            if ($match($this->items[$i]))
             {
                 return true;
             }
@@ -479,7 +478,7 @@ class ArrayList implements ArrayAccess, Listable
         for ($i = 0; $i < $this->size; ++$i)
         {
             $value = $this->items[$i];
-            if (call_user_func($match, $value))
+            if ($match($value))
             {
                 $list->add($value);
             }

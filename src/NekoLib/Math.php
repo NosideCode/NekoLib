@@ -33,7 +33,7 @@ final class Math
     {
         if ($min > $max)
         {
-            throw new InvalidArgumentException("$min cannot be greater than $max");
+            throw new InvalidArgumentException("'$min' cannot be greater than $max");
         }
 
         if ($value < $min)
@@ -161,7 +161,7 @@ final class Math
     {
         if ((PHP_INT_MAX - $b) < $a)
         {
-            throw new OverflowException('Addition operation overflows');
+            throw new OverflowException('The arithmetic operation overflows');
         }
 
         return $a + $b;
@@ -201,7 +201,7 @@ final class Math
     {
         if ((PHP_INT_MIN + $b) > $a)
         {
-            throw new UnderflowException('Subtract underflow');
+            throw new UnderflowException('Arithmetic operation underflow');
         }
 
         return $a - $b;

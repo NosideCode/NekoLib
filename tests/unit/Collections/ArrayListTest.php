@@ -2,7 +2,9 @@
 namespace NekoLib\Tests\Unit\Collections;
 
 use NekoLib\Collections\ArrayList;
+use OutOfBoundsException;
 use PHPUnit\Framework\TestCase;
+use function range;
 
 final class ArrayListTest extends TestCase
 {
@@ -17,8 +19,6 @@ final class ArrayListTest extends TestCase
     /**
      * @depends testEmpty
      *
-     * addRange method is a wrapper around insertRange.
-     * Its behaviour is tested in testInsertRange_Last method.
      */
     public function testAdd(ArrayList $list): ArrayList
     {
@@ -26,12 +26,23 @@ final class ArrayListTest extends TestCase
         $list->add('Pekora');
         $list->add('Botan');
 
+        $this->assertFalse($list->isEmpty());
+        $this->assertSame(3, $list->count());
         $this->assertSame('Watame', $list->get(0));
         $this->assertSame('Pekora', $list->get(1));
         $this->assertSame('Botan', $list->get(2));
-        $this->assertSame(3, $list->count());
-        $this->assertFalse($list->isEmpty());
         return $list;
+    }
+
+    /**
+     * @depends testAdd
+     */
+    public function testSet(ArrayList $original): void
+    {
+        // Clone list
+        $list = new ArrayList($original);
+        $list->set(1, 'Foo');
+        $this->assertSame('Foo', $list->get(1));
     }
 
     /**
@@ -73,6 +84,11 @@ final class ArrayListTest extends TestCase
         $this->assertSame('Gura', $list->get(5));
     }
 
+    /**
+     * @return ArrayList
+     *
+     * addRange() method is a wrapper around insertRange().
+     */
     public function testInsertRange_First(): ArrayList
     {
         $list = new ArrayList(['A', 'B', 'C']);
@@ -184,5 +200,26 @@ final class ArrayListTest extends TestCase
         // Remove last 3 integers
         $list->removeRange(3, 3); // [1, 2, 3]
         $this->assertSame(3, $list->count());
+    }
+
+    public function testRemoveAll_(): void
+    {
+        $list = new ArrayList(range(1, 10));
+
+        $this->assertSame(10, $list->count());
+
+        // Remove even values
+        $list->removeAll(fn($value) => $value % 2 === 0);
+        $this->assertSame(5, $list->count());
+
+        $this->assertSame(1, $list->get(0));
+        $this->assertSame(3, $list->get(1));
+        $this->assertSame(5, $list->get(2));
+        $this->assertSame(7, $list->get(3));
+        $this->assertSame(9, $list->get(4));
+
+        // Remove remaining values
+        $list->removeAll(fn() => true);
+        $this->assertTrue($list->isEmpty());
     }
 }

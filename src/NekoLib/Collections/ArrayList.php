@@ -5,6 +5,7 @@ use ArrayAccess;
 use ArrayIterator;
 use Iterator;
 use OutOfBoundsException;
+use function assert;
 use function count;
 use function min;
 use function sort;
@@ -310,12 +311,60 @@ class ArrayList implements ArrayAccess, Listable
         }
 
         --$this->size;
+        assert($this->size >= 0);
+
         for (; $index < $this->size; ++$index)
         {
             $this->items[$index] = $this->items[$index + 1];
         }
 
+        // Clean up
         $this->items[$this->size] = null;
+    }
+
+    /**
+     * Removes all the values that matches the condition.
+     *
+     * @param callable $match A function that must return a boolean value.
+     *
+     * @return int The number of values removed from the list.
+     */
+    public function removeAll(callable $match): int
+    {
+        $freeIndex = 0;
+
+        // Find the first item which needs to be removed
+        while ($freeIndex < $this->size && !$match($this->items[$freeIndex]))
+        {
+            ++$freeIndex;
+        }
+
+        $current = $freeIndex + 1;
+        while ($current < $this->size)
+        {
+            // Find the first item which needs to be kept
+            while ($current < $this->size && $match($this->items[$current]))
+            {
+                ++$current;
+            }
+
+            if ($current < $this->size)
+            {
+                // Copy item to the free slot
+                $this->items[$freeIndex++] = $this->items[$current++];
+            }
+        }
+
+        for ($i = $freeIndex; $i < $this->size; ++$i)
+        {
+            // Clean up
+            $this->items[$i] = null;
+        }
+
+        $result = $this->size - $freeIndex;
+        $this->size = $freeIndex;
+        assert($this->size >= 0);
+        return $result;
     }
 
     /**
@@ -344,6 +393,7 @@ class ArrayList implements ArrayAccess, Listable
             }
 
             $this->size -= $count;
+            assert($this->size >= 0);
         }
     }
 
@@ -482,6 +532,25 @@ class ArrayList implements ArrayAccess, Listable
             {
                 $list->add($value);
             }
+        }
+
+        return $list;
+    }
+
+    /**
+     * Applies the callback to all the values in the list.
+     *
+     * @param callable $callback A callable to run for each element in each array.
+     *
+     * @return ArrayList A new list containing the values after applying the callback.
+     */
+    public function map(callable $callback): ArrayList
+    {
+        $list = new ArrayList();
+        for ($i = 0; $i < $this->size; ++$i)
+        {
+            $value = $callback($this->items[$i]);
+            $list->add($value);
         }
 
         return $list;

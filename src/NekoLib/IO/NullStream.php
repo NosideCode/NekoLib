@@ -48,9 +48,10 @@ final class NullStream extends Stream
     {
     }
 
-    public function read(int $length, ?string &$data): int
+    public function read(int $length, ?int &$bytes_read): string
     {
-        return 0;
+        $bytes_read = 0;
+        return '';
     }
 
     public function write(string $data, int $length = -1): int

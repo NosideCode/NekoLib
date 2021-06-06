@@ -83,13 +83,13 @@ abstract class Stream
      * Reads a block of bytes from the stream.
      *
      * @param int $length The maximum number of bytes to read.
-     * @param string|null $data The block of bytes read.
+     * @param int|null $bytes_read The number of bytes read.
      *
-     * @return int The number of bytes read.
+     * @return string The block of bytes read.
      * @throws IOException
      * @throws UnsupportedOperationException
      */
-    abstract public function read(int $length, ?string &$data): int;
+    abstract public function read(int $length, ?int &$bytes_read): string;
 
     /**
      * Writes a block of bytes to the stream.

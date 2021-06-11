@@ -269,6 +269,24 @@ class Dictionary implements ArrayAccess, KeyValuePairCollection
     }
 
     /**
+     * Flips all keys with their associated values.
+     *
+     * @return Dictionary
+     */
+    public function flip(): Dictionary
+    {
+        $flipped = new Dictionary();
+        foreach ($this->entries as $entry)
+        {
+            $key = $entry->getValue();
+            $val = $entry->getKey();
+            $flipped->set($key, $val);
+        }
+
+        return $flipped;
+    }
+
+    /**
      * Determines whether the key offset exists in the dictionary.
      *
      * @param mixed $offset The key.

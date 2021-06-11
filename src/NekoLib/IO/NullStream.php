@@ -48,9 +48,8 @@ final class NullStream extends Stream
     {
     }
 
-    public function read(int $length, ?int &$bytes_read): string
+    public function read(int $length): string
     {
-        $bytes_read = 0;
         return '';
     }
 

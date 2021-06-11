@@ -156,12 +156,11 @@ class MemoryStream extends Stream
      * Reads a block of bytes from the stream.
      *
      * @param int $length The maximum number of bytes to read.
-     * @param int|null $bytes_read The number of bytes read.
      *
      * @return string The block of bytes read.
      * @throws IOException
      */
-    public function read(int $length, ?int &$bytes_read): string
+    public function read(int $length): string
     {
         $data = fread($this->memory, $length);
         if ($data === false)
@@ -169,7 +168,6 @@ class MemoryStream extends Stream
             throw new IOException('Could not read the stream');
         }
 
-        $bytes_read = strlen($data);
         return $data;
     }
 

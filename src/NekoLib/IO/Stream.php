@@ -83,13 +83,12 @@ abstract class Stream
      * Reads a block of bytes from the stream.
      *
      * @param int $length The maximum number of bytes to read.
-     * @param int|null $bytes_read The number of bytes read.
      *
      * @return string The block of bytes read.
      * @throws IOException
      * @throws UnsupportedOperationException
      */
-    abstract public function read(int $length, ?int &$bytes_read): string;
+    abstract public function read(int $length): string;
 
     /**
      * Writes a block of bytes to the stream.
@@ -130,8 +129,8 @@ abstract class Stream
     {
         while (!$this->endOfStream())
         {
-            $length = $this->read($buffer_size, $data);
-            $stream->write($data, $length);
+            $data = $this->read($buffer_size);
+            $stream->write($data);
         }
 
         $stream->flush();

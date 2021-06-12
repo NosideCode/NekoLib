@@ -5,7 +5,10 @@ use ArrayAccess;
 use InvalidArgumentException;
 use Iterator;
 use function array_key_exists;
+use function gettype;
+use function is_array;
 use function is_object;
+use function is_resource;
 use function spl_object_hash;
 
 /**
@@ -58,8 +61,7 @@ class Dictionary implements ArrayAccess, KeyValuePairCollection
     {
         if ($value instanceof KeyValuePair)
         {
-            $key = $value->getKey();
-            $this->filterObjectKey($key);
+            $key = $this->createValidArrayKey($value->getKey());
             $entry = $this->entries[$key] ?? null;
             return $entry !== null && ($entry === $value || $entry->getValue() === $value->getValue());
         }
@@ -77,8 +79,7 @@ class Dictionary implements ArrayAccess, KeyValuePairCollection
      */
     public function containsKey(mixed $key): bool
     {
-        $this->filterObjectKey($key);
-        return array_key_exists($key, $this->entries);
+        return array_key_exists($this->createValidArrayKey($key), $this->entries);
     }
 
     /**
@@ -161,14 +162,14 @@ class Dictionary implements ArrayAccess, KeyValuePairCollection
      */
     public function add(mixed $key, mixed $value): void
     {
-        $this->filterObjectKey($key, $rawKey);
-        if (array_key_exists($key, $this->entries))
+        $arrayKey = $this->createValidArrayKey($key);
+        if (array_key_exists($arrayKey, $this->entries))
         {
             throw new InvalidArgumentException('The key already exists');
         }
 
-        $entry = new KeyValuePair($rawKey, $value);
-        $this->entries[$key] = $entry;
+        $entry = new KeyValuePair($key, $value);
+        $this->entries[$arrayKey] = $entry;
         ++$this->size;
     }
 
@@ -183,13 +184,13 @@ class Dictionary implements ArrayAccess, KeyValuePairCollection
      */
     public function get(mixed $key): mixed
     {
-        $this->filterObjectKey($key, $rawKey);
-        if (!array_key_exists($key, $this->entries))
+        $arrayKey = $this->createValidArrayKey($key);
+        if (!array_key_exists($arrayKey, $this->entries))
         {
-            throw new KeyNotFoundException($rawKey);
+            throw new KeyNotFoundException($key);
         }
 
-        return $this->entries[$key]->getValue();
+        return $this->entries[$arrayKey]->getValue();
     }
 
     /**
@@ -202,13 +203,13 @@ class Dictionary implements ArrayAccess, KeyValuePairCollection
      */
     public function set(mixed $key, mixed $value): void
     {
-        $this->filterObjectKey($key, $rawKey);
-        $entry = $this->entries[$key] ?? null;
+        $arrayKey = $this->createValidArrayKey($key);
+        $entry = $this->entries[$arrayKey] ?? null;
 
         if ($entry === null)
         {
             $entry = new KeyValuePair($key);
-            $this->entries[$key] = $entry;
+            $this->entries[$arrayKey] = $entry;
             ++$this->size;
         }
 
@@ -225,7 +226,7 @@ class Dictionary implements ArrayAccess, KeyValuePairCollection
      */
     public function remove(mixed $key): bool
     {
-        $this->filterObjectKey($key);
+        $key = $this->createValidArrayKey($key);
         if (array_key_exists($key, $this->entries))
         {
             unset($this->entries[$key]);
@@ -336,24 +337,37 @@ class Dictionary implements ArrayAccess, KeyValuePairCollection
     }
 
     /**
-     * Filters the given key hashing the object if needed.
+     * Creates an array-valid key.
      *
-     * @param mixed $key The key to filter.
-     * @param mixed|null $raw_key The raw key.
+     * @param mixed $value The value to use to create the key.
      *
-     * @throws InvalidArgumentException If the key is null.
+     * @return string The array key.
+     * @throws InvalidArgumentException If the key is either null, an array, or a resource.
      */
-    private function filterObjectKey(mixed &$key, mixed &$raw_key = null): void
+    private function createValidArrayKey(mixed $value): string
     {
-        if ($key === null)
+        if ($value === null)
         {
             throw new InvalidArgumentException('The key cannot be null');
         }
 
-        $raw_key = $key;
-        if (is_object($key))
+        if (is_array($value))
         {
-            $key = spl_object_hash($key);
+            throw new InvalidArgumentException('The key cannot be an array');
         }
+
+        if (is_resource($value))
+        {
+            throw new InvalidArgumentException('The key cannot be a resource');
+        }
+
+        if (is_object($value))
+        {
+            return 'object:' . spl_object_hash($value);
+        }
+
+        // Other types: int, float, string, bool
+        $type = gettype($value);
+        return "$type:$value";
     }
 }

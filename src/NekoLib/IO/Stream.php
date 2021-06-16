@@ -91,6 +91,24 @@ abstract class Stream
     abstract public function read(int $length): string;
 
     /**
+     * Reads a line of characters from the stream.
+     *
+     * @return string The line of text read.
+     * @throws IOException
+     * @throws UnsupportedOperationException
+     */
+    abstract public function readLine(): string;
+
+    /**
+     * Reads all characters from the current position to the end of the stream.
+     *
+     * @return string
+     * @throws IOException
+     * @throws UnsupportedOperationException
+     */
+    abstract public function readToEnd(): string;
+
+    /**
      * Writes a block of bytes to the stream.
      *
      * @param string $data The data to be written.
@@ -102,6 +120,19 @@ abstract class Stream
      * @throws UnsupportedOperationException
      */
     abstract public function write(string $data, int $length = -1): int;
+
+    /**
+     * Writes a string to the stream, followed by a line terminator.
+     *
+     * @param string $data The string to be written.
+     * @param int $length The maximum number of bytes to write. If the value is less than zero, writing will stop
+     * until the end of $data is reached. This value does not count the length of the line terminator.
+     *
+     * @return int The number of bytes written.
+     * @throws IOException
+     * @throws UnsupportedOperationException
+     */
+    abstract public function writeLine(string $data, int $length = -1): int;
 
     /**
      * Clears the buffer of this stream and forces any buffered data to be written to its destination.

@@ -2,7 +2,8 @@
 namespace NekoLib\IO;
 
 /**
- * A stream that points to the void of the universe.
+ * Represents a no-op stream.
+ * This stream reads from and writes to an unknown black hole.
  */
 final class NullStream extends Stream
 {
@@ -53,7 +54,22 @@ final class NullStream extends Stream
         return '';
     }
 
+    public function readLine(): string
+    {
+        return '';
+    }
+
+    public function readToEnd(): string
+    {
+        return '';
+    }
+
     public function write(string $data, int $length = -1): int
+    {
+        return 0;
+    }
+
+    public function writeLine(string $data, int $length = -1): int
     {
         return 0;
     }

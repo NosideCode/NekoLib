@@ -4,6 +4,9 @@ namespace NekoLib;
 use Exception;
 use Throwable;
 
+/**
+ * Thrown when a method call is not valid in its current state.
+ */
 class InvalidOperationException extends Exception
 {
     public function __construct(string $message = '', int $code = 0, Throwable $previous = null)

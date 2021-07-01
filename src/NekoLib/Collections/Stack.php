@@ -2,8 +2,8 @@
 namespace NekoLib\Collections;
 
 use ArrayIterator;
-use Iterator;
 use OutOfBoundsException;
+use Traversable;
 use function array_pop;
 use function array_reverse;
 
@@ -18,13 +18,13 @@ class Stack implements Collection
     /**
      * Stack constructor.
      *
-     * @param Collection|array|null $collection A collection or array of initial values.
+     * @param Traversable|null $items A collection or array of initial values.
      */
-    public function __construct(Collection|array $collection = null)
+    public function __construct(Traversable $items = null)
     {
-        if ($collection !== null)
+        if ($items !== null)
         {
-            foreach ($collection as $value)
+            foreach ($items as $value)
             {
                 $this->push($value);
             }
@@ -107,9 +107,9 @@ class Stack implements Collection
     /**
      * Gets an iterator for the stack.
      *
-     * @return Iterator
+     * @return Traversable
      */
-    public function getIterator(): Iterator
+    public function getIterator(): Traversable
     {
         return new ArrayIterator($this->toArray());
     }

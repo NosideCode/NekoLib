@@ -3,7 +3,7 @@ namespace NekoLib\Collections;
 
 use ArrayAccess;
 use InvalidArgumentException;
-use Iterator;
+use Traversable;
 use function array_key_exists;
 use function gettype;
 use function is_array;
@@ -135,9 +135,9 @@ class Dictionary implements ArrayAccess, KeyValuePairCollection
     /**
      * Gets an iterator for the dictionary.
      *
-     * @return Iterator
+     * @return Traversable
      */
-    public function getIterator(): Iterator
+    public function getIterator(): Traversable
     {
         return new KeyValuePairIterator($this->entries);
     }

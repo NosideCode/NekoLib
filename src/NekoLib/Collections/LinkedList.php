@@ -2,7 +2,7 @@
 namespace NekoLib\Collections;
 
 use InvalidArgumentException;
-use Iterator;
+use Traversable;
 
 /**
  * Represents a doubly linked list.
@@ -16,13 +16,13 @@ class LinkedList implements Collection
     /**
      * LinkedList constructor.
      *
-     * @param Collection|array|null $collection A collection or array of initial values.
+     * @param Traversable|null $items A collection or array of initial values.
      */
-    public function __construct(Collection|array $collection = null)
+    public function __construct(Traversable $items = null)
     {
-        if ($collection !== null)
+        if ($items !== null)
         {
-            foreach ($collection as $value)
+            foreach ($items as $value)
             {
                 $this->addLast($value);
             }
@@ -110,9 +110,9 @@ class LinkedList implements Collection
     /**
      * Gets an Iterator for the linked list.
      *
-     * @return Iterator
+     * @return Traversable
      */
-    public function getIterator(): Iterator
+    public function getIterator(): Traversable
     {
         return new LinkedListIterator($this->head);
     }

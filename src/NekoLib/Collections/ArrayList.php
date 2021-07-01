@@ -3,8 +3,8 @@ namespace NekoLib\Collections;
 
 use ArrayAccess;
 use ArrayIterator;
-use Iterator;
 use OutOfBoundsException;
+use Traversable;
 use function assert;
 use function count;
 use function min;
@@ -23,13 +23,13 @@ class ArrayList implements ArrayAccess, Listable
     /**
      * ArrayList constructor.
      *
-     * @param Collection|array|null $collection A collection or array of initial values.
+     * @param Traversable|null $items A collection or array of initial values.
      */
-    public function __construct(Collection|array $collection = null)
+    public function __construct(Traversable $items = null)
     {
-        if ($collection !== null)
+        if ($items !== null)
         {
-            foreach ($collection as $value)
+            foreach ($items as $value)
             {
                 $this->add($value);
             }
@@ -112,9 +112,9 @@ class ArrayList implements ArrayAccess, Listable
     /**
      * Gets an iterator for the list.
      *
-     * @return Iterator
+     * @return Traversable
      */
-    public function getIterator(): Iterator
+    public function getIterator(): Traversable
     {
         return new ArrayIterator($this->toArray());
     }

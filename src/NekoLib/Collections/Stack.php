@@ -18,9 +18,9 @@ class Stack implements Collection
     /**
      * Stack constructor.
      *
-     * @param Traversable|null $items A collection or array of initial values.
+     * @param iterable|null $items A collection or array of initial values.
      */
-    public function __construct(Traversable $items = null)
+    public function __construct(?iterable $items = null)
     {
         if ($items !== null)
         {

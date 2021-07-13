@@ -170,13 +170,13 @@ class ArrayList implements ArrayAccess, Listable
     }
 
     /**
-     * Adds a collection or array of values to the list.
+     * Adds a collection of values to the list.
      *
-     * @param Collection|array $collection The collection whose values should be added to the end of the list.
+     * @param iterable $items The collection whose values should be added to the end of the list.
      */
-    public function addRange(Collection|array $collection): void
+    public function addRange(iterable $items): void
     {
-        $this->insertRange($this->size, $collection);
+        $this->insertRange($this->size, $items);
     }
 
     /**
@@ -240,26 +240,26 @@ class ArrayList implements ArrayAccess, Listable
     }
 
     /**
-     * Inserts a collection or array of values at the specified index in the list.
+     * Inserts a collection of values at the specified index in the list.
      *
      * @param int $index The zero-based index at which the values should be inserted.
-     * @param Collection|array $collection The collection or array of values to insert.
+     * @param iterable $items The collection or array of values to insert.
      *
      * @throws OutOfBoundsException If the index is less than zero or greater than the size of the list.
      */
-    public function insertRange(int $index, Collection|array $collection): void
+    public function insertRange(int $index, iterable $items): void
     {
         if ($index < 0 || $index > $this->size)
         {
             throw new OutOfBoundsException('Index must be within the bounds of the list');
         }
 
-        if ($collection instanceof Collection)
+        if ($items instanceof Collection)
         {
-            $collection = $collection->toArray();
+            $items = $items->toArray();
         }
 
-        $length = count($collection);
+        $length = count($items);
         $newLength = $this->size + $length;
 
         // Move values to make room
@@ -271,7 +271,7 @@ class ArrayList implements ArrayAccess, Listable
         // Copy collection values
         for ($i = 0; $i < $length; ++$i)
         {
-            $this->items[$index++] = $collection[$i];
+            $this->items[$index++] = $items[$i];
         }
 
         $this->size = $newLength;

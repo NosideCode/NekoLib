@@ -15,7 +15,7 @@ use const SORT_REGULAR;
 /**
  * Represents a list of values that can be accessed by index.
  */
-class ArrayList implements ArrayAccess, Listable
+class ArrayList implements ArrayAccess, IndexedList
 {
     private array $items = [];
     private int $size = 0;

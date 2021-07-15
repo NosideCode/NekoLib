@@ -6,7 +6,7 @@ use OutOfBoundsException;
 /**
  * Defines a collection of values that can be individually accessed by an index.
  */
-interface Listable extends Collection
+interface IndexedList extends Collection
 {
     /**
      * Adds a value to the list.

@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
-namespace NekoLib\Tests\Unit\Collections;
+namespace Neko\Tests\Unit\Collections;
 
 use InvalidArgumentException;
-use NekoLib\Collections\Dictionary;
-use NekoLib\Collections\KeyNotFoundException;
+use Neko\Collections\Dictionary;
+use Neko\Collections\KeyNotFoundException;
 use PHPUnit\Framework\TestCase;
 
 final class DictionaryTest extends TestCase

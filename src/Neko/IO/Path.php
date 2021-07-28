@@ -1,5 +1,5 @@
 <?php declare(strict_types=1);
-namespace NekoLib\IO;
+namespace Neko\IO;
 
 use InvalidArgumentException;
 use function func_num_args;

@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
-namespace NekoLib\Tests\Unit\Collections;
+namespace Neko\Tests\Unit\Collections;
 
-use NekoLib\Collections\Queue;
+use Neko\Collections\Queue;
 use PHPUnit\Framework\TestCase;
 
 final class QueueTest extends TestCase

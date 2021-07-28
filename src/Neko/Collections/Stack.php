@@ -1,21 +1,22 @@
 <?php declare(strict_types=1);
-namespace NekoLib\Collections;
+namespace Neko\Collections;
 
 use ArrayIterator;
 use OutOfBoundsException;
 use Traversable;
-use function array_shift;
+use function array_pop;
+use function array_reverse;
 
 /**
- * Represents a first-in-first-out (FIFO) collection.
+ * Represents a last-in-first-out (LIFO) collection.
  */
-class Queue implements Collection
+class Stack implements Collection
 {
     private array $items = [];
     private int $size = 0;
 
     /**
-     * Queue constructor.
+     * Stack constructor.
      *
      * @param iterable|null $items A collection or array of initial values.
      */
@@ -25,13 +26,13 @@ class Queue implements Collection
         {
             foreach ($items as $value)
             {
-                $this->enqueue($value);
+                $this->push($value);
             }
         }
     }
 
     /**
-     * Removes all values from the queue.
+     * Removes all values from the stack.
      */
     public function clear(): void
     {
@@ -40,7 +41,7 @@ class Queue implements Collection
     }
 
     /**
-     * Determines whether the queue is empty.
+     * Determines whether the stack is empty.
      *
      * @return bool
      */
@@ -50,7 +51,7 @@ class Queue implements Collection
     }
 
     /**
-     * Gets the number of items in the queue.
+     * Gets the number of items in the stack.
      *
      * @return int
      */
@@ -60,7 +61,7 @@ class Queue implements Collection
     }
 
     /**
-     * Determines whether the queue contains the given value.
+     * Determines whether the stack contains the given value.
      *
      * @param mixed $value The value to search.
      *
@@ -80,75 +81,75 @@ class Queue implements Collection
     }
 
     /**
-     * Copies the values of the queue to an array.
+     * Copies the values of the stack to an array.
      *
      * @param array $destination The destination array.
      * @param int $index The zero-based index in $array at which copy begins.
      */
     public function copyTo(array &$destination, int $index = 0): void
     {
-        for ($i = 0; $i < $this->size; ++$i)
+        for ($i = $this->size - 1; $i >= 0; --$i)
         {
             $destination[$index++] = $this->items[$i];
         }
     }
 
     /**
-     * Gets the queue values as a one-dimensional array.
+     * Gets the stack values as a one-dimensional array.
      *
      * @return array
      */
     public function toArray(): array
     {
-        return $this->items;
+        return array_reverse($this->items);
     }
 
     /**
-     * Gets an iterator for the queue.
+     * Gets an iterator for the stack.
      *
      * @return Traversable
      */
     public function getIterator(): Traversable
     {
-        return new ArrayIterator($this->items);
+        return new ArrayIterator($this->toArray());
     }
 
     /**
-     * Adds a value at the end of the queue.
+     * Pushes a value at the top of the stack.
      *
-     * @param mixed $value The value to add.
+     * @param mixed $value The value to push.
      */
-    public function enqueue(mixed $value): void
+    public function push(mixed $value): void
     {
         $this->items[] = $value;
         ++$this->size;
     }
 
     /**
-     * Removes and returns the value at the beginning of the queue.
+     * Removes and returns the value at the top of the stack.
      *
      * @return mixed
-     * @throws OutOfBoundsException If the queue is empty.
+     * @throws OutOfBoundsException If the stack is empty.
      */
-    public function dequeue(): mixed
+    public function pop(): mixed
     {
         if ($this->isEmpty())
         {
-            throw new OutOfBoundsException('Queue is empty');
+            throw new OutOfBoundsException('Stack is empty');
         }
 
         --$this->size;
-        return array_shift($this->items);
+        return array_pop($this->items);
     }
 
     /**
-     * Tries to remove and return the value at the beginning of the queue.
+     * Tries to remove and return the value at the top of the stack.
      *
-     * @param mixed $result The value at the beginning of the queue or NULL if there is none.
+     * @param mixed $result The value at the top of the stack or NULL if there is none.
      *
      * @return bool A boolean value that indicates whether the operation succeed or not.
      */
-    public function tryDequeue(mixed &$result): bool
+    public function tryPop(mixed &$result): bool
     {
         if ($this->isEmpty())
         {
@@ -157,30 +158,30 @@ class Queue implements Collection
         }
 
         --$this->size;
-        $result = array_shift($this->items);
+        $result = array_pop($this->items);
         return true;
     }
 
     /**
-     * Gets the value at the beginning of the queue without removing it.
+     * Gets the value at the top of the stack without removing it.
      *
      * @return mixed
-     * @throws OutOfBoundsException If the queue is empty.
+     * @throws OutOfBoundsException If the stack is empty.
      */
     public function peek(): mixed
     {
         if ($this->isEmpty())
         {
-            throw new OutOfBoundsException('Queue is empty');
+            throw new OutOfBoundsException('Stack is empty');
         }
 
-        return $this->items[0];
+        return $this->items[$this->size - 1];
     }
 
     /**
-     * Tries to get the value at the beginning of the queue.
+     * Tries to get the value at the top of the stack.
      *
-     * @param mixed $result The value at the beginning of the queue or NULL if there is none.
+     * @param mixed $result The value at the top of the stack or NULL if there is none.
      *
      * @return bool A boolean value that indicates whether the operation succeed or not.
      */
@@ -192,7 +193,7 @@ class Queue implements Collection
             return false;
         }
 
-        $result = $this->items[0];
+        $result = $this->items[$this->size - 1];
         return true;
     }
 }

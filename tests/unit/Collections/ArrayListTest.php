@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
-namespace NekoLib\Tests\Unit\Collections;
+namespace Neko\Tests\Unit\Collections;
 
-use NekoLib\Collections\ArrayList;
+use Neko\Collections\ArrayList;
 use OutOfBoundsException;
 use PHPUnit\Framework\TestCase;
 use function range;

@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
-namespace NekoLib\Tests\Unit\IO;
+namespace Neko\Tests\Unit\IO;
 
-use NekoLib\IO\Path;
+use Neko\IO\Path;
 use PHPUnit\Framework\TestCase;
 use function implode;
 use const DIRECTORY_SEPARATOR;

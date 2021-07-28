@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
-namespace NekoLib\Tests\Unit;
+namespace Neko\Tests\Unit;
 
 use InvalidArgumentException;
-use NekoLib\Math;
+use Neko\Math;
 use OverflowException;
 use PHPUnit\Framework\TestCase;
 use UnderflowException;

@@ -1,5 +1,5 @@
 <?php declare(strict_types=1);
-namespace NekoLib;
+namespace Neko;
 
 use Exception;
 use Throwable;

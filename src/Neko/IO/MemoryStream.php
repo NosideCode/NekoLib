@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
-namespace NekoLib\IO;
+namespace Neko\IO;
 
-use NekoLib\InvalidOperationException;
-use NekoLib\UnsupportedOperationException;
+use Neko\InvalidOperationException;
+use Neko\UnsupportedOperationException;
 use function fclose;
 use function feof;
 use function fgets;

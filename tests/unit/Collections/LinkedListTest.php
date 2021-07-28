@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
-namespace NekoLib\Tests\Unit\Collections;
+namespace Neko\Tests\Unit\Collections;
 
-use NekoLib\Collections\LinkedList;
-use NekoLib\Collections\LinkedListNode;
+use Neko\Collections\LinkedList;
+use Neko\Collections\LinkedListNode;
 use PHPUnit\Framework\TestCase;
 
 final class LinkedListTest extends TestCase

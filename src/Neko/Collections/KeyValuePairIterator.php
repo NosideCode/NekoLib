@@ -1,5 +1,5 @@
 <?php declare(strict_types=1);
-namespace NekoLib\Collections;
+namespace Neko\Collections;
 
 use Iterator;
 use function current;

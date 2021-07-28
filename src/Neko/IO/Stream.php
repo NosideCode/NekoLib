@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
-namespace NekoLib\IO;
+namespace Neko\IO;
 
-use NekoLib\UnsupportedOperationException;
+use Neko\UnsupportedOperationException;
 
 /**
  * Provides a generic interface for streams.

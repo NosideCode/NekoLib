@@ -1,5 +1,5 @@
 {
-    "name": "nosidecode/nekolib",
+    "name": "nosidecode/neko",
     "description": "PHP class library.",
     "type": "library",
     "require": {
@@ -18,7 +18,7 @@
     "minimum-stability": "dev",
     "autoload": {
         "psr-4": {
-            "NekoLib\\": "src/NekoLib"
+            "Neko\\": "src/Neko"
         }
     }
 }

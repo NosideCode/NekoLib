@@ -266,8 +266,9 @@ class MemoryStream extends Stream
      */
     public function writeLine(string $data, int $length = -1): int
     {
-        $this->write($data, $length);
-        $this->write(PHP_EOL, strlen(PHP_EOL));
+        $bytes = $this->write($data, $length);
+        $bytes += $this->write(PHP_EOL, strlen(PHP_EOL));
+        return $bytes;
     }
 
     /**

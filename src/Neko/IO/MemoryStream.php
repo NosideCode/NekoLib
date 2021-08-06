@@ -22,7 +22,7 @@ use const SEEK_SET;
  */
 class MemoryStream extends Stream
 {
-    protected mixed $memory;
+    private mixed $memory;
 
     /**
      * MemoryStream constructor.
@@ -31,7 +31,7 @@ class MemoryStream extends Stream
      */
     public function __construct()
     {
-        $this->memory = fopen('php://memory', 'r+');
+        $this->memory = fopen('php://memory', 'rb+');
         if ($this->memory === false)
         {
             throw new IOException('Could not open the memory stream');
@@ -207,7 +207,7 @@ class MemoryStream extends Stream
     }
 
     /**
-     * Reads all characters from the current position to the end of the stream.
+     * Reads all the content of the stream to the end.
      *
      * @return string
      * @throws IOException
@@ -239,12 +239,9 @@ class MemoryStream extends Stream
     public function write(string $data, int $length = -1): int
     {
         $this->ensureStreamIsOpen();
-        if ($length < 0)
-        {
-            $length = strlen($data);
-        }
-
+        $length = $length > -1 ? $length : strlen($data);
         $bytes = fwrite($this->memory, $data, $length);
+
         if ($bytes === false)
         {
             throw new IOException('Could not write to the stream');
@@ -278,8 +275,8 @@ class MemoryStream extends Stream
      * @param int $buffer_size The size of the buffer. This value must be greater than zero.
      *
      * @throws IOException If this stream is not readable or the destination stream is not writable.
-     * @throws UnsupportedOperationException If the stream is not readable or the destination is not writable.
      * @throws InvalidOperationException If the stream is closed.
+     * @throws UnsupportedOperationException If the stream is not readable or the destination is not writable.
      */
     public function writeTo(Stream $stream, int $buffer_size = 81920): void
     {

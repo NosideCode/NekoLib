@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 namespace Neko\IO;
 
+use InvalidArgumentException;
 use Neko\UnsupportedOperationException;
 
 /**
@@ -100,7 +101,7 @@ abstract class Stream
     abstract public function readLine(): string;
 
     /**
-     * Reads all characters from the current position to the end of the stream.
+     * Reads all the content of the stream to the end.
      *
      * @return string
      * @throws IOException
@@ -154,10 +155,19 @@ abstract class Stream
      * @param int $buffer_size The size of the buffer. This value must be greater than zero.
      *
      * @throws IOException If this stream is not readable or the destination stream is not writable.
+     * @throws InvalidArgumentException If the buffer size is less than or equal to zero.
      * @throws UnsupportedOperationException If the stream is not readable or the destination stream is not writable.
      */
     public function copyTo(Stream $stream, int $buffer_size = 81920): void
     {
+        $this->ensureCanRead();
+        $stream->ensureCanWrite();
+
+        if ($buffer_size <= 0)
+        {
+            throw new InvalidArgumentException('The buffer size must be a value greater than zero');
+        }
+
         while (!$this->endOfStream())
         {
             $data = $this->read($buffer_size);

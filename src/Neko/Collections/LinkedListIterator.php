@@ -2,12 +2,14 @@
 namespace Neko\Collections;
 
 use Iterator;
+use Neko\InvalidOperationException;
 
 /**
- * Iterates over the nodes of a linked list.
+ * Iterates through the nodes of a linked list.
  */
 final class LinkedListIterator implements Iterator
 {
+    private LinkedListNode $head;
     private ?LinkedListNode $node;
 
     /**
@@ -17,52 +19,35 @@ final class LinkedListIterator implements Iterator
      */
     public function __construct(LinkedListNode $head)
     {
+        $this->head = $head;
         $this->node = $head;
     }
 
-    /**
-     * Gets the value of the current node.
-     *
-     * @return mixed
-     */
     public function current(): mixed
     {
         return $this->node->getValue();
     }
 
-    /**
-     * Moves to the next node.
-     */
     public function next(): void
     {
         $this->node = $this->node->getNext();
     }
 
     /**
-     * Gets the current node as the key.
-     *
-     * @return LinkedListNode
+     * @throws InvalidOperationException
      */
-    public function key(): LinkedListNode
+    public function key(): void
     {
-        return $this->node;
+        throw new InvalidOperationException('Accessing the key is not valid for a linked list collection');
     }
 
-    /**
-     * Determines whether the current node is not null.
-     *
-     * @return bool
-     */
     public function valid(): bool
     {
         return $this->node !== null;
     }
 
-    /**
-     * Does nothing.
-     */
     public function rewind(): void
     {
-        // It really does nothing.
+        $this->node = $this->head;
     }
 }

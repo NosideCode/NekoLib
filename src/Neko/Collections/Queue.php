@@ -1,7 +1,6 @@
 <?php declare(strict_types=1);
 namespace Neko\Collections;
 
-use ArrayIterator;
 use OutOfBoundsException;
 use Traversable;
 use function array_values;
@@ -112,7 +111,7 @@ class Queue implements Collection
      */
     public function getIterator(): Traversable
     {
-        return new ArrayIterator($this->toArray());
+        return new QueueIterator($this->items, $this->size, $this->head);
     }
 
     /**

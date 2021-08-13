@@ -2,7 +2,6 @@
 namespace Neko\Collections;
 
 use ArrayAccess;
-use ArrayIterator;
 use OutOfBoundsException;
 use Traversable;
 use function assert;
@@ -116,7 +115,7 @@ class ArrayList implements ArrayAccess, IndexedList
      */
     public function getIterator(): Traversable
     {
-        return new ArrayIterator($this->toArray());
+        return new IndexedListIterator($this->items, $this->size);
     }
 
     /**

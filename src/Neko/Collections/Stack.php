@@ -1,7 +1,6 @@
 <?php declare(strict_types=1);
 namespace Neko\Collections;
 
-use ArrayIterator;
 use OutOfBoundsException;
 use Traversable;
 use function array_pop;
@@ -111,7 +110,7 @@ class Stack implements Collection
      */
     public function getIterator(): Traversable
     {
-        return new ArrayIterator($this->toArray());
+        return new StackIterator($this->items, $this->size);
     }
 
     /**

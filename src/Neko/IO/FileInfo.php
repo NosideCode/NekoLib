@@ -70,7 +70,7 @@ final class FileInfo extends FileSystemInfo
 
         if ($size === false)
         {
-            $this->throwIOExceptionFromError();
+            self::throwIOExceptionFromError();
         }
 
         return $size;
@@ -95,7 +95,7 @@ final class FileInfo extends FileSystemInfo
     {
         if (!@touch($this->full_path))
         {
-            $this->throwIOExceptionFromError();
+            self::throwIOExceptionFromError();
         }
     }
 
@@ -113,7 +113,7 @@ final class FileInfo extends FileSystemInfo
             $this->ensureIsWritable();
             if (!@unlink($this->full_path))
             {
-                $this->throwIOExceptionFromError();
+                self::throwIOExceptionFromError();
             }
         }
     }
@@ -138,7 +138,7 @@ final class FileInfo extends FileSystemInfo
 
         if (!@copy($this->full_path, $destFileName))
         {
-            $this->throwIOExceptionFromError();
+            self::throwIOExceptionFromError();
         }
 
         return new FileInfo($destFileName);
@@ -163,7 +163,7 @@ final class FileInfo extends FileSystemInfo
 
         if (!@rename($this->full_path, $destFileName))
         {
-            $this->throwIOExceptionFromError();
+            self::throwIOExceptionFromError();
         }
 
         $this->original_path = $destFileName;

@@ -25,7 +25,7 @@ final class IndexedListIterator implements SeekableIterator
         $this->size = $size;
     }
 
-    public function seek($offset): void
+    public function seek(mixed $offset): void
     {
         if ($offset < 0 || $offset >= $this->size)
         {
@@ -42,7 +42,7 @@ final class IndexedListIterator implements SeekableIterator
 
     public function next(): void
     {
-        ++$this->cursor;
+        $this->cursor++;
     }
 
     public function key(): int

@@ -170,7 +170,7 @@ class Dictionary implements ArrayAccess, KeyValuePairCollection
 
         $entry = new KeyValuePair($key, $value);
         $this->entries[$arrayKey] = $entry;
-        ++$this->size;
+        $this->size++;
     }
 
     /**
@@ -210,7 +210,7 @@ class Dictionary implements ArrayAccess, KeyValuePairCollection
         {
             $entry = new KeyValuePair($key);
             $this->entries[$arrayKey] = $entry;
-            ++$this->size;
+            $this->size++;
         }
 
         $entry->setValue($value);
@@ -230,7 +230,7 @@ class Dictionary implements ArrayAccess, KeyValuePairCollection
         if (array_key_exists($key, $this->entries))
         {
             unset($this->entries[$key]);
-            --$this->size;
+            $this->size--;
             return true;
         }
 

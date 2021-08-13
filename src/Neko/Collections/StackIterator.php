@@ -33,7 +33,7 @@ final class StackIterator implements Iterator
 
     public function next(): void
     {
-        --$this->cursor;
+        $this->cursor--;
     }
 
     /**

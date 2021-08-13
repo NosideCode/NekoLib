@@ -122,7 +122,7 @@ class Queue implements Collection
     public function enqueue(mixed $value): void
     {
         $this->items[] = $value;
-        ++$this->size;
+        $this->size++;
     }
 
     /**
@@ -141,8 +141,8 @@ class Queue implements Collection
         $value = $this->items[$this->head];
         unset($this->items[$this->head]);
 
-        --$this->size;
-        ++$this->head;
+        $this->size--;
+        $this->head++;
         return $value;
     }
 
@@ -164,8 +164,8 @@ class Queue implements Collection
         $result = $this->items[$this->head];
         unset($this->items[$this->head]);
 
-        --$this->size;
-        ++$this->head;
+        $this->size--;
+        $this->head++;
         return true;
     }
 

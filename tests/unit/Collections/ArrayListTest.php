@@ -2,7 +2,6 @@
 namespace Neko\Tests\Unit\Collections;
 
 use Neko\Collections\ArrayList;
-use OutOfBoundsException;
 use PHPUnit\Framework\TestCase;
 use function range;
 

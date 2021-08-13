@@ -84,7 +84,7 @@ class ArrayList implements ArrayAccess, IndexedList
      */
     public function copyTo(array &$destination, int $index = 0): void
     {
-        for ($i = 0; $i < $this->size; ++$i)
+        for ($i = 0; $i < $this->size; $i++)
         {
             $destination[$index++] = $this->items[$i];
         }
@@ -100,7 +100,7 @@ class ArrayList implements ArrayAccess, IndexedList
         // We cannot use array_slice() as the order of the keys may have been lost,
         // so we need to copy each value manually.
         $result = [];
-        for ($i = 0; $i < $this->size; ++$i)
+        for ($i = 0; $i < $this->size; $i++)
         {
             $result[$i] = $this->items[$i];
         }
@@ -127,7 +127,7 @@ class ArrayList implements ArrayAccess, IndexedList
      */
     public function indexOf(mixed $value): int
     {
-        for ($i = 0; $i < $this->size; ++$i)
+        for ($i = 0; $i < $this->size; $i++)
         {
             if ($value === $this->items[$i])
             {
@@ -147,7 +147,7 @@ class ArrayList implements ArrayAccess, IndexedList
      */
     public function lastIndexOf(mixed $value): int
     {
-        for ($i = $this->size - 1; $i >= 0; --$i)
+        for ($i = $this->size - 1; $i >= 0; $i--)
         {
             if ($value === $this->items[$i])
             {
@@ -229,13 +229,13 @@ class ArrayList implements ArrayAccess, IndexedList
             throw new OutOfBoundsException('Index must be within the bounds of the list');
         }
 
-        for ($i = $this->size; $i > $index; --$i)
+        for ($i = $this->size; $i > $index; $i--)
         {
             $this->items[$i] = $this->items[$i - 1];
         }
 
         $this->items[$index] = $value;
-        ++$this->size;
+        $this->size++;
     }
 
     /**
@@ -262,13 +262,13 @@ class ArrayList implements ArrayAccess, IndexedList
         $newLength = $this->size + $length;
 
         // Move values to make room
-        for ($i = $newLength - 1; $i >= $index + $length; --$i)
+        for ($i = $newLength - 1; $i >= $index + $length; $i--)
         {
             $this->items[$i] = $this->items[$i - $length];
         }
 
         // Copy collection values
-        for ($i = 0; $i < $length; ++$i)
+        for ($i = 0; $i < $length; $i++)
         {
             $this->items[$index++] = $items[$i];
         }
@@ -309,15 +309,14 @@ class ArrayList implements ArrayAccess, IndexedList
             throw new OutOfBoundsException('Index was out of bounds. Must be non-negative and less than the size of the list');
         }
 
-        --$this->size;
+        $this->size--;
         assert($this->size >= 0);
 
-        for (; $index < $this->size; ++$index)
+        for (; $index < $this->size; $index++)
         {
             $this->items[$index] = $this->items[$index + 1];
         }
 
-        // Clean up
         $this->items[$this->size] = null;
     }
 
@@ -335,7 +334,7 @@ class ArrayList implements ArrayAccess, IndexedList
         // Find the first item which needs to be removed
         while ($freeIndex < $this->size && !$match($this->items[$freeIndex]))
         {
-            ++$freeIndex;
+            $freeIndex++;
         }
 
         $current = $freeIndex + 1;
@@ -344,7 +343,7 @@ class ArrayList implements ArrayAccess, IndexedList
             // Find the first item which needs to be kept
             while ($current < $this->size && $match($this->items[$current]))
             {
-                ++$current;
+                $current++;
             }
 
             if ($current < $this->size)
@@ -354,7 +353,7 @@ class ArrayList implements ArrayAccess, IndexedList
             }
         }
 
-        for ($i = $freeIndex; $i < $this->size; ++$i)
+        for ($i = $freeIndex; $i < $this->size; $i++)
         {
             // Clean up
             $this->items[$i] = null;
@@ -388,7 +387,7 @@ class ArrayList implements ArrayAccess, IndexedList
             while ($index < $this->size)
             {
                 $this->items[$index] = $this->items[$index + $count] ?? null;
-                ++$index;
+                $index++;
             }
 
             $this->size -= $count;
@@ -413,8 +412,8 @@ class ArrayList implements ArrayAccess, IndexedList
             $this->items[$start] = $b;
             $this->items[$end] = $a;
 
-            ++$start;
-            --$end;
+            $start++;
+            $end--;
         }
     }
 
@@ -437,7 +436,7 @@ class ArrayList implements ArrayAccess, IndexedList
         $count = min($count, $this->size);
         $list = new ArrayList();
 
-        for ($i = 0; $i < $count; ++$i)
+        for ($i = 0; $i < $count; $i++)
         {
             $list->add($this->items[$index++]);
         }
@@ -483,7 +482,7 @@ class ArrayList implements ArrayAccess, IndexedList
      */
     public function all(callable $match): bool
     {
-        for ($i = 0; $i < $this->size; ++$i)
+        for ($i = 0; $i < $this->size; $i++)
         {
             if (!$match($this->items[$i]))
             {
@@ -503,7 +502,7 @@ class ArrayList implements ArrayAccess, IndexedList
      */
     public function any(callable $match): bool
     {
-        for ($i = 0; $i < $this->size; ++$i)
+        for ($i = 0; $i < $this->size; $i++)
         {
             if ($match($this->items[$i]))
             {
@@ -524,7 +523,7 @@ class ArrayList implements ArrayAccess, IndexedList
     public function filter(callable $match): ArrayList
     {
         $list = new ArrayList();
-        for ($i = 0; $i < $this->size; ++$i)
+        for ($i = 0; $i < $this->size; $i++)
         {
             $value = $this->items[$i];
             if ($match($value))
@@ -546,7 +545,7 @@ class ArrayList implements ArrayAccess, IndexedList
     public function map(callable $callback): ArrayList
     {
         $list = new ArrayList();
-        for ($i = 0; $i < $this->size; ++$i)
+        for ($i = 0; $i < $this->size; $i++)
         {
             $value = $callback($this->items[$i]);
             $list->add($value);

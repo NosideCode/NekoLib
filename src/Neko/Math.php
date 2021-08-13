@@ -82,7 +82,7 @@ final class Math
         }
 
         $result = 1;
-        for (; $n > 0; --$n)
+        for (; $n > 0; $n--)
         {
             $result *= $n;
         }

@@ -75,7 +75,7 @@ final class Path
         // Trim any extra directory separator
         while ($end > $rootLen && self::isDirectorySeparator($path[$end - 1]))
         {
-            --$end;
+            $end--;
         }
 
         return substr($path, 0, $end);
@@ -93,7 +93,7 @@ final class Path
         $len = strlen($path) - 1;
         $rootLen = self::getRootLength($path);
 
-        for ($i = $len; $i >= 0; --$i)
+        for ($i = $len; $i >= 0; $i--)
         {
             if ($i < $rootLen || self::isDirectorySeparator($path[$i]))
             {
@@ -128,7 +128,7 @@ final class Path
     public static function hasExtension(string $path): bool
     {
         $len = strlen($path) - 1;
-        for ($i = $len; $i >= 0; --$i)
+        for ($i = $len; $i >= 0; $i--)
         {
             $chr = $path[$i];
             if ($chr === '.')
@@ -157,7 +157,7 @@ final class Path
     public static function getExtension(string $path): string
     {
         $len = strlen($path);
-        for ($i = $len - 1; $i >= 0; --$i)
+        for ($i = $len - 1; $i >= 0; $i--)
         {
             $chr = $path[$i];
             if ($chr === '.' && $i !== $len - 1)
@@ -166,7 +166,7 @@ final class Path
             }
         }
 
-        // path has no extension
+        // path does not have an extension
         return '';
     }
 
@@ -187,7 +187,7 @@ final class Path
             return '';
         }
 
-        for ($i = $len - 1; $i >= 0; --$i)
+        for ($i = $len - 1; $i >= 0; $i--)
         {
             $chr = $path[$i];
             if ($chr === '.')
@@ -267,7 +267,7 @@ final class Path
         }
 
         $result = '';
-        for ($i = $start; $i < $numArgs; ++$i)
+        for ($i = $start; $i < $numArgs; $i++)
         {
             $path = $paths[$i];
             if (strlen($path) === 0)
@@ -303,7 +303,7 @@ final class Path
         }
 
         $result = '';
-        for ($i = 0; $i < $numArgs; ++$i)
+        for ($i = 0; $i < $numArgs; $i++)
         {
             $path = $paths[$i];
             if (strlen($path) === 0)
@@ -335,7 +335,7 @@ final class Path
         $len = strlen($path);
         $normalized = '';
 
-        for ($i = 0; $i < $len; ++$i)
+        for ($i = 0; $i < $len; $i++)
         {
             $chr = $path[$i];
             if (self::isDirectorySeparator($chr))
@@ -404,7 +404,7 @@ final class Path
         // In cases like "\\?\C:\.\" and "\\?\C:\..\", the first segment after the root will be ".\" and "..\"
         if (self::isDirectorySeparator($path[$skip - 1]))
         {
-            --$skip;
+            $skip--;
         }
 
         // Remove "//", "/./", and "/../"
@@ -413,7 +413,7 @@ final class Path
             $canonical = substr($path, 0, $skip);
         }
 
-        for ($i = $skip; $i < $len; ++$i)
+        for ($i = $skip; $i < $len; $i++)
         {
             $c = $path[$i];
             if (self::isDirectorySeparator($c) && $i + 1 < $len)
@@ -422,7 +422,7 @@ final class Path
                 // "parent/./child" => "parent/child"
                 if (($i + 2 === $len || self::isDirectorySeparator($path[$i + 2])) && $path[$i + 1] === '.')
                 {
-                    ++$i;
+                    $i++;
                     continue;
                 }
 
@@ -430,7 +430,7 @@ final class Path
                 // "parent/child/../grandchild" => "parent/grandchild"
                 if ($i + 2 < $len && ($i + 3 === $len || self::isDirectorySeparator($path[$i + 3])) && $path[$i + 1] === '.' && $path[$i + 2] === '.')
                 {
-                    for ($s = strlen($canonical) - 1; $s >= $skip; --$s)
+                    for ($s = strlen($canonical) - 1; $s >= $skip; $s--)
                     {
                         if (self::isDirectorySeparator($canonical[$s]))
                         {
@@ -508,7 +508,7 @@ final class Path
 
                 while ($idx < $len && (!self::isDirectorySeparator($path[$idx]) || --$n > 0))
                 {
-                    ++$idx;
+                    $idx++;
                 }
             }
         }
@@ -520,7 +520,7 @@ final class Path
                 $idx = 2;
                 if ($len >= 3 && self::isDirectorySeparator($path[2]))
                 {
-                    ++$idx;
+                    $idx++;
                 }
             }
         }

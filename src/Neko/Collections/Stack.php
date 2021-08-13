@@ -68,7 +68,7 @@ class Stack implements Collection
      */
     public function contains(mixed $value): bool
     {
-        for ($i = 0; $i < $this->size; ++$i)
+        for ($i = 0; $i < $this->size; $i++)
         {
             if ($value === $this->items[$i])
             {
@@ -87,7 +87,7 @@ class Stack implements Collection
      */
     public function copyTo(array &$destination, int $index = 0): void
     {
-        for ($i = $this->size - 1; $i >= 0; --$i)
+        for ($i = $this->size - 1; $i >= 0; $i--)
         {
             $destination[$index++] = $this->items[$i];
         }
@@ -121,7 +121,7 @@ class Stack implements Collection
     public function push(mixed $value): void
     {
         $this->items[] = $value;
-        ++$this->size;
+        $this->size++;
     }
 
     /**
@@ -137,7 +137,7 @@ class Stack implements Collection
             throw new OutOfBoundsException('Stack is empty');
         }
 
-        --$this->size;
+        $this->size--;
         return array_pop($this->items);
     }
 
@@ -156,7 +156,7 @@ class Stack implements Collection
             return false;
         }
 
-        --$this->size;
+        $this->size--;
         $result = array_pop($this->items);
         return true;
     }

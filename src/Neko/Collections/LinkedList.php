@@ -216,7 +216,7 @@ class LinkedList implements Collection
         $newNode->setPrevious($node);
         $node->setNext($newNode);
         $newNode->getNext()?->setPrevious($newNode);
-        ++$this->size;
+        $this->size++;
 
         if ($node === $this->tail)
         {
@@ -254,7 +254,7 @@ class LinkedList implements Collection
         $newNode->setPrevious($node->getPrevious());
         $node->setPrevious($newNode);
         $newNode->getPrevious()?->setNext($newNode);
-        ++$this->size;
+        $this->size++;
 
         if ($node === $this->head)
         {
@@ -284,7 +284,7 @@ class LinkedList implements Collection
         $node->setNext($this->head);
         $this->head?->setPrevious($node);
         $this->head = $node;
-        ++$this->size;
+        $this->size++;
 
         if ($this->tail === null)
         {
@@ -309,7 +309,7 @@ class LinkedList implements Collection
         $node->setPrevious($this->tail);
         $this->tail?->setNext($node);
         $this->tail = $node;
-        ++$this->size;
+        $this->size++;
 
         if ($this->head === null)
         {
@@ -357,7 +357,7 @@ class LinkedList implements Collection
 
         $prev->setNext($next);
         $next->setPrevious($prev);
-        --$this->size;
+        $this->size--;
 
         if ($this->head === $node)
         {
@@ -378,7 +378,7 @@ class LinkedList implements Collection
         $next = $this->head?->getNext();
         $next?->setPrevious(null);
         $this->head = $next;
-        --$this->size;
+        $this->size--;
     }
 
     /**
@@ -389,6 +389,6 @@ class LinkedList implements Collection
         $prev = $this->tail?->getPrevious();
         $prev?->setNext(null);
         $this->tail = $prev;
-        --$this->size;
+        $this->size--;
     }
 }

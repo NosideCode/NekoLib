@@ -4,7 +4,7 @@ namespace Neko\Collections;
 use ArrayIterator;
 use OutOfBoundsException;
 use Traversable;
-use function array_shift;
+use function array_values;
 
 /**
  * Represents a first-in-first-out (FIFO) collection.
@@ -12,6 +12,7 @@ use function array_shift;
 class Queue implements Collection
 {
     private array $items = [];
+    private int $head = 0;
     private int $size = 0;
 
     /**
@@ -36,6 +37,7 @@ class Queue implements Collection
     public function clear(): void
     {
         $this->items = [];
+        $this->head = 0;
         $this->size = 0;
     }
 
@@ -68,9 +70,9 @@ class Queue implements Collection
      */
     public function contains(mixed $value): bool
     {
-        for ($i = 0; $i < $this->size; ++$i)
+        foreach ($this->items as $item)
         {
-            if ($value === $this->items[$i])
+            if ($value === $item)
             {
                 return true;
             }
@@ -87,9 +89,9 @@ class Queue implements Collection
      */
     public function copyTo(array &$destination, int $index = 0): void
     {
-        for ($i = 0; $i < $this->size; ++$i)
+        foreach ($this->items as $item)
         {
-            $destination[$index++] = $this->items[$i];
+            $destination[$index++] = $item;
         }
     }
 
@@ -100,7 +102,7 @@ class Queue implements Collection
      */
     public function toArray(): array
     {
-        return $this->items;
+        return array_values($this->items);
     }
 
     /**
@@ -110,7 +112,7 @@ class Queue implements Collection
      */
     public function getIterator(): Traversable
     {
-        return new ArrayIterator($this->items);
+        return new ArrayIterator($this->toArray());
     }
 
     /**
@@ -137,8 +139,12 @@ class Queue implements Collection
             throw new OutOfBoundsException('Queue is empty');
         }
 
+        $value = $this->items[$this->head];
+        unset($this->items[$this->head]);
+
         --$this->size;
-        return array_shift($this->items);
+        ++$this->head;
+        return $value;
     }
 
     /**
@@ -156,8 +162,11 @@ class Queue implements Collection
             return false;
         }
 
+        $result = $this->items[$this->head];
+        unset($this->items[$this->head]);
+
         --$this->size;
-        $result = array_shift($this->items);
+        ++$this->head;
         return true;
     }
 
@@ -174,7 +183,7 @@ class Queue implements Collection
             throw new OutOfBoundsException('Queue is empty');
         }
 
-        return $this->items[0];
+        return $this->items[$this->head];
     }
 
     /**
@@ -192,7 +201,7 @@ class Queue implements Collection
             return false;
         }
 
-        $result = $this->items[0];
+        $result = $this->items[$this->head];
         return true;
     }
 }

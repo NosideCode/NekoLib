@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 namespace Neko\Collections;
 
-use OutOfBoundsException;
+use Neko\InvalidOperationException;
 use Traversable;
 use function array_values;
 
@@ -129,13 +129,13 @@ class Queue implements Collection
      * Removes and returns the value at the beginning of the queue.
      *
      * @return mixed
-     * @throws OutOfBoundsException If the queue is empty.
+     * @throws InvalidOperationException If the queue is empty.
      */
     public function dequeue(): mixed
     {
         if ($this->isEmpty())
         {
-            throw new OutOfBoundsException('Queue is empty');
+            throw new InvalidOperationException('Queue is empty');
         }
 
         $value = $this->items[$this->head];
@@ -173,13 +173,13 @@ class Queue implements Collection
      * Gets the value at the beginning of the queue without removing it.
      *
      * @return mixed
-     * @throws OutOfBoundsException If the queue is empty.
+     * @throws InvalidOperationException If the queue is empty.
      */
     public function peek(): mixed
     {
         if ($this->isEmpty())
         {
-            throw new OutOfBoundsException('Queue is empty');
+            throw new InvalidOperationException('Queue is empty');
         }
 
         return $this->items[$this->head];

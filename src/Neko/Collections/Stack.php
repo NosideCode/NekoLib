@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 namespace Neko\Collections;
 
-use OutOfBoundsException;
+use Neko\InvalidOperationException;
 use Traversable;
 use function array_pop;
 use function array_reverse;
@@ -128,13 +128,13 @@ class Stack implements Collection
      * Removes and returns the value at the top of the stack.
      *
      * @return mixed
-     * @throws OutOfBoundsException If the stack is empty.
+     * @throws InvalidOperationException If the stack is empty.
      */
     public function pop(): mixed
     {
         if ($this->isEmpty())
         {
-            throw new OutOfBoundsException('Stack is empty');
+            throw new InvalidOperationException('Stack is empty');
         }
 
         $this->size--;
@@ -165,13 +165,13 @@ class Stack implements Collection
      * Gets the value at the top of the stack without removing it.
      *
      * @return mixed
-     * @throws OutOfBoundsException If the stack is empty.
+     * @throws InvalidOperationException If the stack is empty.
      */
     public function peek(): mixed
     {
         if ($this->isEmpty())
         {
-            throw new OutOfBoundsException('Stack is empty');
+            throw new InvalidOperationException('Stack is empty');
         }
 
         return $this->items[$this->size - 1];

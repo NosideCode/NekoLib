@@ -2,6 +2,7 @@
 namespace Neko\Tests\Unit\Collections;
 
 use Neko\Collections\Queue;
+use Neko\InvalidOperationException;
 use PHPUnit\Framework\TestCase;
 
 final class QueueTest extends TestCase
@@ -35,6 +36,13 @@ final class QueueTest extends TestCase
         $this->assertSame('Pekora', $queue->dequeue());
         $this->assertSame(0, $queue->count());
         $this->assertTrue($queue->isEmpty());
+    }
+
+    public function testDequeue_ThrowsExceptionIfIsEmpty(): void
+    {
+        $this->expectException(InvalidOperationException::class);
+        $queue = new Queue();
+        $queue->dequeue();
     }
 
     public function testTryPeek_FailsWhenEmpty(): void

@@ -2,6 +2,7 @@
 namespace Neko\Tests\Unit\Collections;
 
 use Neko\Collections\Stack;
+use Neko\InvalidOperationException;
 use PHPUnit\Framework\TestCase;
 
 final class StackTest extends TestCase
@@ -35,6 +36,13 @@ final class StackTest extends TestCase
         $this->assertSame('Watame', $stack->pop());
         $this->assertSame(0, $stack->count());
         $this->assertTrue($stack->isEmpty());
+    }
+
+    public function testPop_ThrowsExceptionIfIsEmpty(): void
+    {
+        $this->expectException(InvalidOperationException::class);
+        $stack = new Stack();
+        $stack->pop();
     }
 
     public function testTryPeek_FailsWhenEmpty(): void

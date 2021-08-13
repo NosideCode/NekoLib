@@ -133,15 +133,18 @@ final class FileInfo extends FileSystemInfo
     public function copyTo(string $destFileName, bool $overwrite = false): FileInfo
     {
         $this->ensureIsReadable();
-        $destFileName = Path::getFullPath($destFileName);
-        $this->checkDestination($destFileName, $overwrite);
+        $fullDestFileName = Path::getFullPath($destFileName);
+        $this->checkDestination($fullDestFileName, $overwrite);
 
-        if (!@copy($this->full_path, $destFileName))
+        if (!@copy($this->full_path, $fullDestFileName))
         {
             self::throwIOExceptionFromError();
         }
 
-        return new FileInfo($destFileName);
+        $copied = clone $this;
+        $copied->original_path = $destFileName;
+        $copied->full_path = $fullDestFileName;
+        return $copied;
     }
 
     /**
@@ -158,16 +161,16 @@ final class FileInfo extends FileSystemInfo
     public function moveTo(string $destFileName, bool $overwrite = false): void
     {
         $this->ensureIsWritable();
-        $destFileName = Path::getFullPath($destFileName);
-        $this->checkDestination($destFileName, $overwrite);
+        $fullDestFileName = Path::getFullPath($destFileName);
+        $this->checkDestination($fullDestFileName, $overwrite);
 
-        if (!@rename($this->full_path, $destFileName))
+        if (!@rename($this->full_path, $fullDestFileName))
         {
             self::throwIOExceptionFromError();
         }
 
         $this->original_path = $destFileName;
-        $this->full_path = $destFileName;
+        $this->full_path = $fullDestFileName;
     }
 
     /**
